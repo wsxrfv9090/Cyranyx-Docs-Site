@@ -99,12 +99,7 @@
     });
 
     var visibleCandidates = candidates.filter(isVisible);
-
-    if (visibleCandidates.length > 0) {
-      return visibleCandidates[0];
-    }
-
-    return candidates[candidates.length - 1] || null;
+    return visibleCandidates[0] || candidates[candidates.length - 1] || null;
   }
 
   function createOrUpdateButton() {
@@ -122,8 +117,12 @@
       button.addEventListener("click", function (event) {
         event.preventDefault();
 
-        var current = button.getAttribute("data-current-lang") || findLanguage(window.location.pathname);
-        var target = button.getAttribute("data-target-lang") || (current === "zh" ? "en" : "zh");
+        var current =
+          button.getAttribute("data-current-lang") ||
+          findLanguage(window.location.pathname);
+        var target =
+          button.getAttribute("data-target-lang") ||
+          (current === "zh" ? "en" : "zh");
 
         switchLanguage(current, target);
       });
@@ -182,7 +181,7 @@
 
   function scheduleRemount() {
     window.clearTimeout(remountTimer);
-    remountTimer = window.setTimeout(createOrUpdateButton, 120);
+    remountTimer = window.setTimeout(createOrUpdateButton, 140);
   }
 
   function switchLanguage(currentLang, targetLang) {
@@ -218,29 +217,15 @@
     });
   }
 
-  function observeHeaderChanges() {
-    var observer = new MutationObserver(function () {
-      scheduleRemount();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ["class", "style", "data-theme"],
-    });
-  }
-
   function init() {
     createOrUpdateButton();
 
     window.setTimeout(createOrUpdateButton, 150);
     window.setTimeout(createOrUpdateButton, 500);
+    window.setTimeout(createOrUpdateButton, 1000);
 
     window.addEventListener("resize", scheduleRemount);
     window.addEventListener("orientationchange", scheduleRemount);
-
-    observeHeaderChanges();
   }
 
   if (document.readyState === "loading") {

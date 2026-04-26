@@ -47,7 +47,7 @@
   border-color: var(--cx-link-hover);
   background-color: var(--cx-hover-bg);
   box-shadow: var(--cx-glow-strong);
-  transform: translateY(-1px);
+  transform: none;
 }
 
 .cyranyx-lang-switch:active {
