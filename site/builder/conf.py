@@ -55,6 +55,7 @@ templates_path = ["templates"]
 
 html_css_files = [
     "cyranyx.css",
+    "lang-switch.css",
 ]
 
 html_js_files = [
