@@ -1,41 +1,142 @@
+/* ==========================================================================
+   Cyranyx Dark Color Tokens
+   Source palette: prometheux-ar/cyberpunk,
+   "Activate SCARLET protocol (beta)" / cyberpunk-scarlet-color-theme.json
+
+   Rule:
+   - Prefer color variables and color-only overrides.
+   - Avoid layout, spacing, sizing, and structural overrides.
+   ========================================================================== */
+
 :root {
-  --cyranyx-bg-0: #070812;
-  --cyranyx-bg-1: #101225;
-  --cyranyx-accent-pink: #ff4fd8;
-  --cyranyx-accent-cyan: #20f6ff;
-  --cyranyx-border-hot: rgba(255, 79, 216, 0.42);
-  --cyranyx-border-cyan: rgba(32, 246, 255, 0.36);
-  --cyranyx-glow-pink: 0 0 24px rgba(255, 79, 216, 0.22);
-  --cyranyx-glow-cyan: 0 0 24px rgba(32, 246, 255, 0.16);
+  /* Core backgrounds */
+  --cyranyx-bg-editor: #101116;
+  --cyranyx-bg-sidebar: #0a0b0e;
+  --cyranyx-bg-panel: #1B2738;
+  --cyranyx-bg-purple: #100d23;
+  --cyranyx-bg-input: #001420;
+  --cyranyx-bg-widget: #1d000ae5;
+  --cyranyx-bg-hover: #182333;
+  --cyranyx-bg-selection: #ff005528;
+  --cyranyx-bg-code: #140009;
+
+  /* Scarlet family */
+  --cyranyx-scarlet: #ff0055;
+  --cyranyx-scarlet-solid: #ff004c;
+  --cyranyx-scarlet-hot: #ff235a;
+  --cyranyx-scarlet-soft: #ff8ba8;
+  --cyranyx-scarlet-dim: #ff00557e;
+  --cyranyx-scarlet-border: #ff00552a;
+  --cyranyx-scarlet-hover: #ff00593d;
+  --cyranyx-scarlet-glow: #ff005578;
+
+  /* Neon accents */
+  --cyranyx-cyan: #00ffc8;
+  --cyranyx-blue: #00a2ff;
+  --cyranyx-blue-active: #3d81fe;
+  --cyranyx-blue-soft: #003cff6b;
+  --cyranyx-green: #00FF9C;
+  --cyranyx-green-soft: #00ff9da6;
+  --cyranyx-purple: #283593;
+  --cyranyx-purple-soft: #3629ec7e;
+  --cyranyx-yellow: #fffc58;
+
+  /* Status */
+  --cyranyx-error: #ff1865;
+  --cyranyx-error-bg: #53001ce5;
+  --cyranyx-warning: #ff9100;
+  --cyranyx-warning-bg: #693300e8;
+
+  /* Compatibility aliases for existing test pages */
+  --cyranyx-bg-0: var(--cyranyx-bg-editor);
+  --cyranyx-bg-1: var(--cyranyx-bg-panel);
+  --cyranyx-accent-pink: var(--cyranyx-scarlet);
+  --cyranyx-accent-cyan: var(--cyranyx-cyan);
+  --cyranyx-border-hot: var(--cyranyx-scarlet-border);
+  --cyranyx-border-cyan: #00a2ffa9;
+  --cyranyx-glow-pink: 0 0 24px rgba(255, 0, 85, 0.22);
+  --cyranyx-glow-cyan: 0 0 24px rgba(0, 255, 200, 0.16);
 }
 
-body {
-  letter-spacing: 0.01em;
+/* Only maintain the dark theme for now.
+   Light theme remains usable through Furo defaults. */
+body[data-theme="dark"] {
+  --color-brand-primary: var(--cyranyx-scarlet);
+  --color-brand-content: var(--cyranyx-cyan);
+
+  --color-link: var(--cyranyx-cyan);
+  --color-link--hover: var(--cyranyx-scarlet);
+
+  --color-foreground-primary: var(--cyranyx-scarlet-soft);
+  --color-foreground-secondary: #be4e74;
+  --color-foreground-muted: var(--cyranyx-scarlet-dim);
+  --color-foreground-border: var(--cyranyx-scarlet-border);
+
+  --color-background-primary: var(--cyranyx-bg-editor);
+  --color-background-secondary: var(--cyranyx-bg-sidebar);
+  --color-background-hover: var(--cyranyx-bg-hover);
+  --color-background-hover--transparent: var(--cyranyx-bg-selection);
+  --color-background-border: var(--cyranyx-scarlet-border);
+
+  --color-inline-code-background: var(--cyranyx-bg-code);
+  --color-inline-code-foreground: var(--cyranyx-cyan);
+  --color-inline-code-border: var(--cyranyx-scarlet-border);
+
+  --color-highlight-on-target: var(--cyranyx-purple);
 }
 
-.sidebar-brand-text {
-  letter-spacing: 0.04em;
-  font-weight: 800;
-}
-
-.sd-card {
-  border: 1px solid var(--cyranyx-border-hot);
-  border-radius: 1rem;
-  box-shadow: var(--cyranyx-glow-pink);
+/* sphinx-design color-only adjustments */
+body[data-theme="dark"] .sd-card {
+  border-color: var(--cyranyx-scarlet-border);
   background:
     linear-gradient(
       135deg,
-      rgba(255, 79, 216, 0.08),
-      rgba(32, 246, 255, 0.04)
+      rgba(255, 0, 85, 0.08),
+      rgba(0, 255, 200, 0.04)
     );
+  box-shadow: 0 0 24px rgba(255, 0, 85, 0.16);
 }
 
-.sd-card:hover {
-  border-color: var(--cyranyx-border-cyan);
-  box-shadow: var(--cyranyx-glow-cyan);
+body[data-theme="dark"] .sd-card:hover {
+  border-color: #00a2ffa9;
+  box-shadow: 0 0 24px rgba(0, 255, 200, 0.16);
 }
 
-.highlight,
-div[class^="highlight"] {
-  border-radius: 0.8rem;
+/* Tables: color-only */
+body[data-theme="dark"] table {
+  border-color: var(--cyranyx-scarlet-border);
+}
+
+body[data-theme="dark"] thead {
+  background-color: rgba(255, 0, 85, 0.08);
+}
+
+body[data-theme="dark"] tr:hover {
+  background-color: rgba(255, 0, 85, 0.07);
+}
+
+/* Code blocks: color-only */
+body[data-theme="dark"] .highlight,
+body[data-theme="dark"] div[class^="highlight"] {
+  background-color: var(--cyranyx-bg-code);
+  border-color: var(--cyranyx-scarlet-border);
+}
+
+/* Blockquotes: color-only */
+body[data-theme="dark"] blockquote {
+  color: var(--cyranyx-scarlet-soft);
+  border-color: var(--cyranyx-blue);
+  background-color: rgba(0, 162, 255, 0.05);
+}
+
+/* Form-like elements generated by search / theme internals */
+body[data-theme="dark"] input {
+  background-color: var(--cyranyx-bg-input);
+  color: var(--cyranyx-cyan);
+  border-color: var(--cyranyx-blue);
+}
+
+/* Task checkboxes */
+body[data-theme="dark"] input[type="checkbox"] {
+  accent-color: var(--cyranyx-scarlet);
 }

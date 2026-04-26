@@ -21,7 +21,14 @@ myst_enable_extensions = [
     "deflist",
     "dollarmath",
     "amsmath",
+    "tasklist",
 ]
+
+myst_enable_checkboxes = True
+myst_heading_anchors = 4
+
+html_show_sourcelink = False
+html_permalinks = False
 
 html_theme = "furo"
 html_title = "Cyranyx Documentation"
@@ -39,14 +46,39 @@ html_theme_options = {
         "color-brand-content": "#7c3aed",
     },
     "dark_css_variables": {
-        "color-brand-primary": "#ff4fd8",
-        "color-brand-content": "#ff4fd8",
-        "color-background-primary": "#070812",
-        "color-background-secondary": "#101225",
-        "color-sidebar-background": "#090a16",
-        "color-sidebar-background-border": "#2c1f46",
-        "color-sidebar-link-text--top-level": "#f4eaff",
-        "color-link": "#20f6ff",
-        "color-link--hover": "#ff4fd8",
+        # Brand / links
+        "color-brand-primary": "#ff0055",
+        "color-brand-content": "#00ffc8",
+        "color-link": "#00ffc8",
+        "color-link--hover": "#ff0055",
+
+        # Main text
+        # Cyberpunk Scarlet uses #ff0055 as editor.foreground.
+        # For documentation reading, use softer scarlet as primary text.
+        "color-foreground-primary": "#ff8ba8",
+        "color-foreground-secondary": "#be4e74",
+        "color-foreground-muted": "#ff00557e",
+        "color-foreground-border": "#ff00552a",
+
+        # Backgrounds
+        "color-background-primary": "#101116",
+        "color-background-secondary": "#0a0b0e",
+        "color-background-hover": "#182333",
+        "color-background-hover--transparent": "#ff005528",
+        "color-background-border": "#ff00552a",
+
+        # Inline code
+        "color-inline-code-background": "#140009",
+        "color-inline-code-foreground": "#00ffc8",
+        "color-inline-code-border": "#ff00552a",
+
+        # API / code-ish accents
+        "color-api-name": "#00ffc8",
+        "color-api-pre-name": "#ff0055",
+        "color-api-paren": "#ff8ba8",
+        "color-api-keyword": "#d57bff",
+
+        # Search / target highlight
+        "color-highlight-on-target": "#283593",
     },
 }
