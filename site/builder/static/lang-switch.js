@@ -6,6 +6,8 @@
     zh: { label: "中文", targetLabel: "English" },
   };
 
+  var remountTimer = null;
+
   function normalizePath(pathname) {
     return pathname.replace(/\\/g, "/");
   }
@@ -96,34 +98,42 @@
       });
     });
 
-    var visible = candidates.find(isVisible);
-    return visible || candidates[candidates.length - 1] || null;
-  }
+    var visibleCandidates = candidates.filter(isVisible);
 
-  function createButton() {
-    var existing = document.querySelector(".cyranyx-lang-switch");
-    if (existing) {
-      mountButton(existing);
-      return;
+    if (visibleCandidates.length > 0) {
+      return visibleCandidates[0];
     }
 
+    return candidates[candidates.length - 1] || null;
+  }
+
+  function createOrUpdateButton() {
     var currentLang = findLanguage(window.location.pathname);
     var targetLang = currentLang === "zh" ? "en" : "zh";
 
-    var button = document.createElement("a");
-    button.className = "cyranyx-lang-switch";
-    button.href = "#";
+    var button = document.querySelector(".cyranyx-lang-switch");
+
+    if (!button) {
+      button = document.createElement("a");
+      button.className = "cyranyx-lang-switch";
+      button.href = "#";
+      button.setAttribute("aria-label", "Switch language");
+
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var current = button.getAttribute("data-current-lang") || findLanguage(window.location.pathname);
+        var target = button.getAttribute("data-target-lang") || (current === "zh" ? "en" : "zh");
+
+        switchLanguage(current, target);
+      });
+    }
+
     button.setAttribute("data-current-lang", currentLang);
     button.setAttribute("data-target-lang", targetLang);
-    button.setAttribute("aria-label", "Switch language");
     button.textContent = LANGS[currentLang]
       ? LANGS[currentLang].targetLabel
       : LANGS.en.targetLabel;
-
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      switchLanguage(currentLang, targetLang);
-    });
 
     mountButton(button);
   }
@@ -170,6 +180,11 @@
     document.body.appendChild(button);
   }
 
+  function scheduleRemount() {
+    window.clearTimeout(remountTimer);
+    remountTimer = window.setTimeout(createOrUpdateButton, 120);
+  }
+
   function switchLanguage(currentLang, targetLang) {
     fetchStaticJson("lang-map.json")
       .then(function (payload) {
@@ -203,11 +218,29 @@
     });
   }
 
-  function init() {
-    createButton();
+  function observeHeaderChanges() {
+    var observer = new MutationObserver(function () {
+      scheduleRemount();
+    });
 
-    window.setTimeout(createButton, 150);
-    window.setTimeout(createButton, 500);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class", "style", "data-theme"],
+    });
+  }
+
+  function init() {
+    createOrUpdateButton();
+
+    window.setTimeout(createOrUpdateButton, 150);
+    window.setTimeout(createOrUpdateButton, 500);
+
+    window.addEventListener("resize", scheduleRemount);
+    window.addEventListener("orientationchange", scheduleRemount);
+
+    observeHeaderChanges();
   }
 
   if (document.readyState === "loading") {

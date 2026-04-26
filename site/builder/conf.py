@@ -55,6 +55,9 @@ templates_path = ["templates"]
 
 html_css_files = [
     "cyranyx.css",
+    "cyranyx-dark.css",
+    "cyranyx-light.css",
+    "cyranyx-auto.css",
     "lang-switch.css",
 ]
 
@@ -64,43 +67,30 @@ html_js_files = [
 
 html_theme_options = {
     "light_css_variables": {
-        "color-brand-primary": "#7c3aed",
-        "color-brand-content": "#7c3aed",
+        "color-brand-primary": "#b8003d",
+        "color-brand-content": "#006f8f",
     },
     "dark_css_variables": {
-        # Brand / links
         "color-brand-primary": "#ff0055",
         "color-brand-content": "#00ffc8",
         "color-link": "#00ffc8",
-        "color-link--hover": "#ff0055",
-
-        # Main text
-        # Cyberpunk Scarlet uses #ff0055 as editor.foreground.
-        # For documentation reading, use softer scarlet as primary text.
+        "color-link--hover": "#00a2ff",
         "color-foreground-primary": "#ff8ba8",
         "color-foreground-secondary": "#be4e74",
         "color-foreground-muted": "#ff00557e",
         "color-foreground-border": "#ff00552a",
-
-        # Backgrounds
         "color-background-primary": "#101116",
         "color-background-secondary": "#0a0b0e",
         "color-background-hover": "#182333",
         "color-background-hover--transparent": "#ff005528",
         "color-background-border": "#ff00552a",
-
-        # Inline code
         "color-inline-code-background": "#140009",
         "color-inline-code-foreground": "#00ffc8",
         "color-inline-code-border": "#ff00552a",
-
-        # API / code-ish accents
         "color-api-name": "#00ffc8",
         "color-api-pre-name": "#ff0055",
         "color-api-paren": "#ff8ba8",
         "color-api-keyword": "#d57bff",
-
-        # Search / target highlight
         "color-highlight-on-target": "#283593",
     },
 }

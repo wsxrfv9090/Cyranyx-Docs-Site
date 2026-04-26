@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Cyranyx dark theme mapping
+   ========================================================================== */
+
+body[data-theme="dark"] {
+  --cx-bg-primary: var(--cyranyx-bg-editor);
+  --cx-bg-secondary: var(--cyranyx-bg-sidebar);
+  --cx-bg-panel: var(--cyranyx-bg-panel);
+  --cx-bg-code: var(--cyranyx-bg-code);
+  --cx-bg-code-deep: var(--cyranyx-bg-code-deep);
+  --cx-bg-hover: var(--cyranyx-bg-hover);
+
+  --cx-text-primary: var(--cyranyx-scarlet-soft);
+  --cx-text-secondary: #be4e74;
+  --cx-text-muted: var(--cyranyx-scarlet-dim);
+
+  --cx-brand: var(--cyranyx-scarlet);
+  --cx-brand-content: var(--cyranyx-cyan);
+
+  --cx-link: var(--cyranyx-cyan);
+  --cx-link-hover: var(--cyranyx-blue);
+
+  --cx-border: var(--cyranyx-scarlet-border);
+  --cx-border-strong: var(--cyranyx-scarlet-hot);
+
+  --cx-hover-bg: rgba(0, 162, 255, 0.13);
+  --cx-hover-bg-strong: rgba(0, 162, 255, 0.18);
+
+  --cx-heading-h1: #ff4f91;
+  --cx-heading-h2: #ff2f75;
+  --cx-heading-h3: #20f6ff;
+  --cx-heading-h4: #00d9ff;
+  --cx-heading-h5: #00b0ff;
+  --cx-heading-h6: #3d81fe;
+
+  --cx-inline-code-bg: var(--cyranyx-bg-code);
+  --cx-inline-code-text: var(--cyranyx-cyan);
+  --cx-code-bg: var(--cyranyx-bg-code-deep);
+  --cx-code-text: var(--cyranyx-code-text);
+
+  --cx-card-bg:
+    linear-gradient(
+      135deg,
+      rgba(255, 0, 85, 0.08),
+      rgba(0, 162, 255, 0.05)
+    );
+
+  --cx-glow-soft: 0 0 20px rgba(255, 0, 85, 0.11);
+  --cx-glow-strong: 0 0 24px rgba(0, 255, 200, 0.14);
+}

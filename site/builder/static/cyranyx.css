@@ -1,22 +1,24 @@
 /* ==========================================================================
-   Cyranyx Dark Theme
-   Source palette:
-   prometheux-ar/cyberpunk -> "Activate SCARLET protocol (beta)"
+   Cyranyx shared theme layer
 
-   Design rule:
-   - Preserve Furo layout and behavior.
-   - Use Cyberpunk Scarlet colors.
-   - Override colors deliberately.
-   - Avoid broad layout/sizing changes except where visual controls require it
-     (checkbox custom rendering, color-check swatches).
+   This file contains:
+   - raw palette tokens
+   - active semantic variable fallbacks
+   - component rules shared by light / dark / auto
+
+   Do not put theme-specific color values here unless they are raw reusable
+   palette tokens. Theme-specific mappings belong in:
+   - cyranyx-dark.css
+   - cyranyx-light.css
+   - cyranyx-auto.css
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   0. Tokens
+   0. Raw palette tokens
    -------------------------------------------------------------------------- */
 
 :root {
-  /* Core backgrounds */
+  /* Dark raw backgrounds */
   --cyranyx-bg-editor: #101116;
   --cyranyx-bg-gutter: #060608;
   --cyranyx-bg-sidebar: #0a0b0e;
@@ -63,61 +65,110 @@
   --cyranyx-code-number: #fffc58;
   --cyranyx-code-attribute: #ee6dff;
 
+  /* Light raw palette */
+  --cyranyx-light-bg-primary: #fff4f8;
+  --cyranyx-light-bg-secondary: #ffe7ef;
+  --cyranyx-light-bg-panel: #fffafd;
+  --cyranyx-light-bg-code: #fffafd;
+  --cyranyx-light-bg-code-deep: #fff6fb;
+  --cyranyx-light-text-primary: #2c0010;
+  --cyranyx-light-text-secondary: #5f2438;
+  --cyranyx-light-text-muted: #8f4e65;
+  --cyranyx-light-scarlet: #b8003d;
+  --cyranyx-light-scarlet-hot: #e0004d;
+  --cyranyx-light-cyan: #006f8f;
+  --cyranyx-light-blue: #005fb8;
+  --cyranyx-light-purple: #6d2db8;
+  --cyranyx-light-border: rgba(184, 0, 61, 0.24);
+
   /* Status */
   --cyranyx-error: #ff1865;
   --cyranyx-error-bg: #53001ce5;
   --cyranyx-warning: #ff9100;
   --cyranyx-warning-bg: #693300e8;
 
-  /* Hover backgrounds */
-  --cyranyx-hover-blue-bg: rgba(0, 162, 255, 0.13);
-  --cyranyx-hover-green-bg: rgba(0, 255, 156, 0.11);
-  --cyranyx-hover-scarlet-bg: rgba(255, 0, 85, 0.13);
+  /* Default active variables: dark fallback */
+  --cx-bg-primary: var(--cyranyx-bg-editor);
+  --cx-bg-secondary: var(--cyranyx-bg-sidebar);
+  --cx-bg-panel: var(--cyranyx-bg-panel);
+  --cx-bg-code: var(--cyranyx-bg-code);
+  --cx-bg-code-deep: var(--cyranyx-bg-code-deep);
+  --cx-bg-hover: var(--cyranyx-bg-hover);
 
-  /* Heading colors */
-  --cyranyx-heading-h1: #ff4f91;
-  --cyranyx-heading-h2: #ff2f75;
-  --cyranyx-heading-h3: #20f6ff;
-  --cyranyx-heading-h4: #00d9ff;
-  --cyranyx-heading-h5: #00b0ff;
-  --cyranyx-heading-h6: #3d81fe;
+  --cx-text-primary: var(--cyranyx-scarlet-soft);
+  --cx-text-secondary: #be4e74;
+  --cx-text-muted: var(--cyranyx-scarlet-dim);
+
+  --cx-brand: var(--cyranyx-scarlet);
+  --cx-brand-content: var(--cyranyx-cyan);
+
+  --cx-link: var(--cyranyx-cyan);
+  --cx-link-hover: var(--cyranyx-blue);
+
+  --cx-border: var(--cyranyx-scarlet-border);
+  --cx-border-strong: var(--cyranyx-scarlet-hot);
+
+  --cx-hover-bg: rgba(0, 162, 255, 0.13);
+  --cx-hover-bg-strong: rgba(0, 162, 255, 0.18);
+
+  --cx-heading-h1: #ff4f91;
+  --cx-heading-h2: #ff2f75;
+  --cx-heading-h3: #20f6ff;
+  --cx-heading-h4: #00d9ff;
+  --cx-heading-h5: #00b0ff;
+  --cx-heading-h6: #3d81fe;
+
+  --cx-inline-code-bg: var(--cyranyx-bg-code);
+  --cx-inline-code-text: var(--cyranyx-cyan);
+  --cx-code-bg: var(--cyranyx-bg-code-deep);
+  --cx-code-text: var(--cyranyx-code-text);
+
+  --cx-card-bg:
+    linear-gradient(
+      135deg,
+      rgba(255, 0, 85, 0.08),
+      rgba(0, 162, 255, 0.05)
+    );
+
+  --cx-glow-soft: 0 0 20px rgba(255, 0, 85, 0.11);
+  --cx-glow-strong: 0 0 24px rgba(0, 255, 200, 0.14);
 
   /* Compatibility aliases used by current test pages */
-  --cyranyx-bg-0: var(--cyranyx-bg-editor);
-  --cyranyx-bg-1: var(--cyranyx-bg-panel);
-  --cyranyx-accent-pink: var(--cyranyx-scarlet);
-  --cyranyx-accent-cyan: var(--cyranyx-cyan);
-  --cyranyx-border-hot: var(--cyranyx-scarlet-border);
-  --cyranyx-border-cyan: #00a2ffa9;
-  --cyranyx-glow-pink: 0 0 24px rgba(255, 0, 85, 0.22);
-  --cyranyx-glow-cyan: 0 0 24px rgba(0, 255, 200, 0.16);
+  --cyranyx-bg-0: var(--cx-bg-primary);
+  --cyranyx-bg-1: var(--cx-bg-panel);
+  --cyranyx-accent-pink: var(--cx-brand);
+  --cyranyx-accent-cyan: var(--cx-link);
+  --cyranyx-border-hot: var(--cx-border);
+  --cyranyx-border-cyan: var(--cx-link-hover);
+  --cyranyx-glow-pink: var(--cx-glow-soft);
+  --cyranyx-glow-cyan: var(--cx-glow-strong);
 }
 
 /* --------------------------------------------------------------------------
-   1. Furo dark variables
+   1. Furo variable bridge
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] {
-  --color-brand-primary: var(--cyranyx-scarlet);
-  --color-brand-content: var(--cyranyx-cyan);
+body {
+  --color-brand-primary: var(--cx-brand);
+  --color-brand-content: var(--cx-brand-content);
 
-  --color-link: var(--cyranyx-cyan);
-  --color-link--hover: var(--cyranyx-blue);
+  --color-link: var(--cx-link);
+  --color-link--hover: var(--cx-link-hover);
 
-  --color-foreground-primary: var(--cyranyx-scarlet-soft);
-  --color-foreground-secondary: #be4e74;
-  --color-foreground-muted: var(--cyranyx-scarlet-dim);
-  --color-foreground-border: var(--cyranyx-scarlet-border);
+  --color-foreground-primary: var(--cx-text-primary);
+  --color-foreground-secondary: var(--cx-text-secondary);
+  --color-foreground-muted: var(--cx-text-muted);
+  --color-foreground-border: var(--cx-border);
 
-  --color-background-primary: var(--cyranyx-bg-editor);
-  --color-background-secondary: var(--cyranyx-bg-sidebar);
-  --color-background-hover: var(--cyranyx-bg-hover);
-  --color-background-hover--transparent: var(--cyranyx-hover-blue-bg);
-  --color-background-border: var(--cyranyx-scarlet-border);
+  --color-background-primary: var(--cx-bg-primary);
+  --color-background-secondary: var(--cx-bg-secondary);
+  --color-background-hover: var(--cx-bg-hover);
+  --color-background-hover--transparent: var(--cx-hover-bg);
+  --color-background-border: var(--cx-border);
 
-  --color-inline-code-background: var(--cyranyx-bg-code);
-  --color-inline-code-foreground: var(--cyranyx-cyan);
-  --color-inline-code-border: var(--cyranyx-scarlet-border);
+  --color-inline-code-background: var(--cx-inline-code-bg);
+  --color-inline-code-foreground: var(--cx-inline-code-text);
+  --color-inline-code-border: var(--cx-border);
 
   --color-highlight-on-target: var(--cyranyx-purple);
 }
@@ -126,55 +177,55 @@ body[data-theme="dark"] {
    2. Heading hierarchy
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] h1 {
-  color: var(--cyranyx-heading-h1);
+body h1 {
+  color: var(--cx-heading-h1);
   text-shadow:
-    0 0 18px rgba(255, 0, 85, 0.18),
-    0 0 34px rgba(255, 0, 85, 0.08);
+    0 0 18px color-mix(in srgb, var(--cx-brand) 20%, transparent),
+    0 0 34px color-mix(in srgb, var(--cx-brand) 10%, transparent);
 }
 
-body[data-theme="dark"] h2 {
-  color: var(--cyranyx-heading-h2);
+body h2 {
+  color: var(--cx-heading-h2);
   text-shadow:
-    0 0 14px rgba(255, 0, 85, 0.14),
-    0 0 28px rgba(255, 0, 85, 0.07);
+    0 0 14px color-mix(in srgb, var(--cx-brand) 18%, transparent),
+    0 0 28px color-mix(in srgb, var(--cx-brand) 8%, transparent);
 }
 
-body[data-theme="dark"] h3 {
-  color: var(--cyranyx-heading-h3);
+body h3 {
+  color: var(--cx-heading-h3);
 }
 
-body[data-theme="dark"] h4 {
-  color: var(--cyranyx-heading-h4);
+body h4 {
+  color: var(--cx-heading-h4);
 }
 
-body[data-theme="dark"] h5 {
-  color: var(--cyranyx-heading-h5);
+body h5 {
+  color: var(--cx-heading-h5);
 }
 
-body[data-theme="dark"] h6 {
-  color: var(--cyranyx-heading-h6);
+body h6 {
+  color: var(--cx-heading-h6);
 }
 
 /* Inline emphasis */
-body[data-theme="dark"] strong {
-  color: var(--cyranyx-scarlet-hot);
+body strong {
+  color: var(--cx-border-strong);
 }
 
-body[data-theme="dark"] em {
+body em {
   color: var(--cyranyx-purple-token);
 }
 
 /* Inline code */
-body[data-theme="dark"] code {
-  color: var(--cyranyx-cyan);
-  background-color: var(--cyranyx-bg-code);
+body code {
+  color: var(--cx-inline-code-text);
+  background-color: var(--cx-inline-code-bg);
   border-radius: 0.42rem;
 }
 
 /* Mark */
-body[data-theme="dark"] mark {
-  color: var(--cyranyx-code-text);
+body mark {
+  color: var(--cx-code-text);
   background-color: var(--cyranyx-purple);
 }
 
@@ -182,134 +233,133 @@ body[data-theme="dark"] mark {
    3. Links and hover states
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] a {
-  color: var(--cyranyx-cyan);
-  text-decoration-color: rgba(0, 255, 200, 0.45);
+body a {
+  color: var(--cx-link);
+  text-decoration-color: color-mix(in srgb, var(--cx-link) 45%, transparent);
 }
 
-body[data-theme="dark"] a:hover,
-body[data-theme="dark"] a:focus-visible {
-  color: var(--cyranyx-blue) !important;
-  text-decoration-color: var(--cyranyx-blue) !important;
+body a:hover,
+body a:focus-visible {
+  color: var(--cx-link-hover) !important;
+  text-decoration-color: var(--cx-link-hover) !important;
 }
 
-/* Main content links: stronger hover feedback without changing layout */
-body[data-theme="dark"] article a:hover,
-body[data-theme="dark"] main a:hover,
-body[data-theme="dark"] .content a:hover {
-  background-color: rgba(0, 162, 255, 0.10);
-  color: var(--cyranyx-blue) !important;
+body article a:hover,
+body main a:hover,
+body .content a:hover {
+  background-color: var(--cx-hover-bg);
+  color: var(--cx-link-hover) !important;
 }
 
 /* Footnote references and backrefs */
-body[data-theme="dark"] a.footnote-reference,
-body[data-theme="dark"] a.footnote-backref,
-body[data-theme="dark"] .footnote-reference a,
-body[data-theme="dark"] .footnote a {
+body a.footnote-reference,
+body a.footnote-backref,
+body .footnote-reference a,
+body .footnote a {
   color: var(--cyranyx-purple-token);
 }
 
-body[data-theme="dark"] a.footnote-reference:hover,
-body[data-theme="dark"] a.footnote-backref:hover,
-body[data-theme="dark"] .footnote-reference a:hover,
-body[data-theme="dark"] .footnote a:hover {
-  color: var(--cyranyx-blue) !important;
-  background-color: var(--cyranyx-hover-blue-bg);
+body a.footnote-reference:hover,
+body a.footnote-backref:hover,
+body .footnote-reference a:hover,
+body .footnote a:hover {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
 }
 
 /* --------------------------------------------------------------------------
    4. Left sidebar navigation
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .sidebar-brand-text {
-  color: var(--cyranyx-cyan);
+body .sidebar-brand-text {
+  color: var(--cx-link);
   text-shadow:
-    0 0 16px rgba(0, 255, 200, 0.22),
-    0 0 30px rgba(0, 162, 255, 0.12);
+    0 0 16px color-mix(in srgb, var(--cx-link) 22%, transparent),
+    0 0 30px color-mix(in srgb, var(--cx-link-hover) 12%, transparent);
 }
 
-body[data-theme="dark"] .sidebar-tree p.caption,
-body[data-theme="dark"] .sidebar-tree .caption-text {
-  color: var(--cyranyx-scarlet);
+body .sidebar-tree p.caption,
+body .sidebar-tree .caption-text {
+  color: var(--cx-brand);
 }
 
-body[data-theme="dark"] .sidebar-tree .reference,
-body[data-theme="dark"] .sidebar-tree a.reference {
-  color: var(--cyranyx-scarlet-soft);
+body .sidebar-tree .reference,
+body .sidebar-tree a.reference {
+  color: var(--cx-text-primary);
   border-radius: 999px;
 }
 
-body[data-theme="dark"] .sidebar-tree .reference:hover,
-body[data-theme="dark"] .sidebar-tree a.reference:hover,
-body[data-theme="dark"] .sidebar-tree li:hover > .reference,
-body[data-theme="dark"] .sidebar-tree li:hover > a.reference {
-  color: var(--cyranyx-blue) !important;
-  background-color: var(--cyranyx-hover-blue-bg);
+body .sidebar-tree .reference:hover,
+body .sidebar-tree a.reference:hover,
+body .sidebar-tree li:hover > .reference,
+body .sidebar-tree li:hover > a.reference {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] .sidebar-tree .current > .reference,
-body[data-theme="dark"] .sidebar-tree .current-page > .reference,
-body[data-theme="dark"] .sidebar-tree li.current > a.reference,
-body[data-theme="dark"] .sidebar-tree li.current-page > a.reference,
-body[data-theme="dark"] .sidebar-tree .reference.current {
-  color: var(--cyranyx-cyan) !important;
-  background-color: rgba(0, 162, 255, 0.14);
+body .sidebar-tree .current > .reference,
+body .sidebar-tree .current-page > .reference,
+body .sidebar-tree li.current > a.reference,
+body .sidebar-tree li.current-page > a.reference,
+body .sidebar-tree .reference.current {
+  color: var(--cx-link) !important;
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] .sidebar-tree .current > .reference:hover,
-body[data-theme="dark"] .sidebar-tree .current-page > .reference:hover,
-body[data-theme="dark"] .sidebar-tree li.current > a.reference:hover,
-body[data-theme="dark"] .sidebar-tree li.current-page > a.reference:hover,
-body[data-theme="dark"] .sidebar-tree .reference.current:hover {
-  color: var(--cyranyx-blue) !important;
+body .sidebar-tree .current > .reference:hover,
+body .sidebar-tree .current-page > .reference:hover,
+body .sidebar-tree li.current > a.reference:hover,
+body .sidebar-tree li.current-page > a.reference:hover,
+body .sidebar-tree .reference.current:hover {
+  color: var(--cx-link-hover) !important;
 }
 
 /* --------------------------------------------------------------------------
    5. Right page TOC
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .toc-title,
-body[data-theme="dark"] .toc-drawer .toc-title {
-  color: var(--cyranyx-scarlet);
+body .toc-title,
+body .toc-drawer .toc-title {
+  color: var(--cx-brand);
 }
 
-body[data-theme="dark"] .toc-tree .reference,
-body[data-theme="dark"] .toc-tree a.reference {
-  color: var(--cyranyx-scarlet-dim);
+body .toc-tree .reference,
+body .toc-tree a.reference {
+  color: var(--cx-text-muted);
   border-radius: 999px;
   padding-inline: 0.28rem;
 }
 
-body[data-theme="dark"] .toc-tree .reference:hover,
-body[data-theme="dark"] .toc-tree a.reference:hover,
-body[data-theme="dark"] .toc-tree li:hover > .reference,
-body[data-theme="dark"] .toc-tree li:hover > a.reference {
-  color: var(--cyranyx-blue) !important;
-  background-color: var(--cyranyx-hover-blue-bg);
+body .toc-tree .reference:hover,
+body .toc-tree a.reference:hover,
+body .toc-tree li:hover > .reference,
+body .toc-tree li:hover > a.reference {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] .toc-tree .current > .reference,
-body[data-theme="dark"] .toc-tree li.current > a.reference,
-body[data-theme="dark"] .toc-tree .reference.current {
-  color: var(--cyranyx-cyan) !important;
+body .toc-tree .current > .reference,
+body .toc-tree li.current > a.reference,
+body .toc-tree .reference.current {
+  color: var(--cx-link) !important;
 }
 
 /* --------------------------------------------------------------------------
    6. Prev / next page navigation
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .related-pages a,
-body[data-theme="dark"] a.prev-page,
-body[data-theme="dark"] a.next-page {
+body .related-pages a,
+body a.prev-page,
+body a.next-page {
   border-radius: 0.55rem;
   padding-inline: 0.32rem;
 }
 
-body[data-theme="dark"] .related-pages a:hover,
-body[data-theme="dark"] a.prev-page:hover,
-body[data-theme="dark"] a.next-page:hover {
-  color: var(--cyranyx-blue) !important;
-  background-color: var(--cyranyx-hover-blue-bg);
+body .related-pages a:hover,
+body a.prev-page:hover,
+body a.next-page:hover {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
 }
 
 /* --------------------------------------------------------------------------
@@ -338,52 +388,51 @@ body[data-theme="dark"] a.next-page:hover {
   border-radius: 0.22rem;
 }
 
-/* Row-specific color preview alignment */
 .color-grid > .color-row:nth-of-type(1) .color-name code,
 .color-grid > .color-row:nth-of-type(1) .color-value code {
-  color: var(--cyranyx-scarlet-soft);
+  color: var(--cx-heading-h1);
 }
 
 .color-grid > .color-row:nth-of-type(2) .color-name code,
 .color-grid > .color-row:nth-of-type(2) .color-value code {
-  color: var(--cyranyx-blue);
+  color: var(--cx-link-hover);
 }
 
 .color-grid > .color-row:nth-of-type(3) .color-name code,
 .color-grid > .color-row:nth-of-type(3) .color-value code {
-  color: var(--cyranyx-scarlet);
+  color: var(--cx-brand);
 }
 
 .color-grid > .color-row:nth-of-type(4) .color-name code,
 .color-grid > .color-row:nth-of-type(4) .color-value code {
-  color: var(--cyranyx-cyan);
+  color: var(--cx-link);
 }
 
 .color-grid > .color-row:nth-of-type(5) .color-name code,
 .color-grid > .color-row:nth-of-type(5) .color-value code {
-  color: var(--cyranyx-scarlet-hot);
+  color: var(--cx-border-strong);
 }
 
 .color-grid > .color-row:nth-of-type(6) .color-name code,
 .color-grid > .color-row:nth-of-type(6) .color-value code {
-  color: var(--cyranyx-blue);
+  color: var(--cx-link-hover);
 }
 
 .color-grid > .color-row:nth-of-type(7) .color-name code,
 .color-grid > .color-row:nth-of-type(7) .color-value code {
-  color: var(--cyranyx-scarlet);
+  color: var(--cx-brand);
 }
 
 .color-grid > .color-row:nth-of-type(8) .color-name code,
 .color-grid > .color-row:nth-of-type(8) .color-value code {
-  color: var(--cyranyx-cyan);
+  color: var(--cx-link);
 }
 
 .color-swatch {
   min-height: 2.2rem;
   border-radius: 0.8rem;
-  border: 1px solid var(--cyranyx-scarlet-border);
-  box-shadow: 0 0 16px rgba(255, 0, 85, 0.18);
+  border: 1px solid var(--cx-border);
+  box-shadow: var(--cx-glow-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -392,72 +441,66 @@ body[data-theme="dark"] a.next-page:hover {
   letter-spacing: 0.02em;
 }
 
-/* Override inline swatch styles where needed so the visual blocks represent the variables. */
 .color-grid > .color-row:nth-of-type(1) .color-swatch {
-  background: var(--cyranyx-bg-editor) !important;
-  color: var(--cyranyx-scarlet-soft) !important;
+  background: var(--cx-bg-primary) !important;
+  color: var(--cx-heading-h1) !important;
 }
 
 .color-grid > .color-row:nth-of-type(2) .color-swatch {
-  background: var(--cyranyx-bg-panel) !important;
-  color: var(--cyranyx-cyan) !important;
+  background: var(--cx-bg-panel) !important;
+  color: var(--cx-link) !important;
 }
 
 .color-grid > .color-row:nth-of-type(3) .color-swatch {
-  background: var(--cyranyx-scarlet) !important;
-  color: var(--cyranyx-bg-editor) !important;
+  background: var(--cx-brand) !important;
+  color: var(--cx-bg-primary) !important;
 }
 
 .color-grid > .color-row:nth-of-type(4) .color-swatch {
-  background: var(--cyranyx-cyan) !important;
-  color: var(--cyranyx-bg-editor) !important;
+  background: var(--cx-link) !important;
+  color: var(--cx-bg-primary) !important;
 }
 
 .color-grid > .color-row:nth-of-type(5) .color-swatch {
-  background: var(--cyranyx-bg-code-deep) !important;
-  color: var(--cyranyx-scarlet-hot) !important;
-  border-color: var(--cyranyx-scarlet-hot) !important;
+  background: var(--cx-bg-code) !important;
+  color: var(--cx-border-strong) !important;
+  border-color: var(--cx-border-strong) !important;
 }
 
 .color-grid > .color-row:nth-of-type(6) .color-swatch {
-  background: var(--cyranyx-bg-code-deep) !important;
-  color: var(--cyranyx-blue) !important;
-  border-color: var(--cyranyx-blue) !important;
+  background: var(--cx-bg-code) !important;
+  color: var(--cx-link-hover) !important;
+  border-color: var(--cx-link-hover) !important;
 }
 
 .color-grid > .color-row:nth-of-type(7) .color-swatch {
-  background: var(--cyranyx-bg-panel) !important;
-  color: var(--cyranyx-scarlet) !important;
-  box-shadow: var(--cyranyx-glow-pink) !important;
+  background: var(--cx-bg-panel) !important;
+  color: var(--cx-brand) !important;
+  box-shadow: var(--cx-glow-soft) !important;
 }
 
 .color-grid > .color-row:nth-of-type(8) .color-swatch {
-  background: var(--cyranyx-bg-panel) !important;
-  color: var(--cyranyx-cyan) !important;
-  box-shadow: var(--cyranyx-glow-cyan) !important;
+  background: var(--cx-bg-panel) !important;
+  color: var(--cx-link) !important;
+  box-shadow: var(--cx-glow-strong) !important;
 }
 
 .preview-panel {
-  border: 1px solid var(--cyranyx-scarlet-border);
+  border: 1px solid var(--cx-border);
   border-radius: 1rem;
   padding: 1rem;
   margin: 1rem 0;
-  box-shadow: 0 0 20px rgba(255, 0, 85, 0.14);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 0, 85, 0.08),
-      rgba(0, 162, 255, 0.05)
-    );
+  box-shadow: var(--cx-glow-soft);
+  background: var(--cx-card-bg);
 }
 
 .preview-title {
   display: inline-flex;
   padding: 0.2rem 0.65rem;
-  border: 1px solid var(--cyranyx-blue);
+  border: 1px solid var(--cx-link-hover);
   border-radius: 0.75rem;
-  color: var(--cyranyx-cyan);
-  box-shadow: 0 0 16px rgba(0, 255, 200, 0.14);
+  color: var(--cx-link);
+  box-shadow: var(--cx-glow-strong);
   font-weight: 700;
 }
 
@@ -466,125 +509,120 @@ body[data-theme="dark"] a.next-page:hover {
   margin: 0.15rem 0.25rem 0.15rem 0;
   padding: 0.12rem 0.48rem;
   border-radius: 0.6rem;
-  border: 1px solid var(--cyranyx-scarlet-border);
-  color: var(--cyranyx-cyan);
-  background: rgba(0, 162, 255, 0.06);
+  border: 1px solid var(--cx-border);
+  color: var(--cx-link);
+  background: var(--cx-hover-bg);
 }
 
 /* --------------------------------------------------------------------------
    8. sphinx-design cards
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .sd-card {
-  border-color: var(--cyranyx-scarlet-border);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 0, 85, 0.08),
-      rgba(0, 162, 255, 0.05)
-    );
-  box-shadow: 0 0 24px rgba(255, 0, 85, 0.14);
+body .sd-card {
+  border-color: var(--cx-border);
+  background: var(--cx-card-bg);
+  box-shadow: var(--cx-glow-soft);
 }
 
-body[data-theme="dark"] .sd-card-title {
-  color: var(--cyranyx-scarlet-soft);
+body .sd-card-title {
+  color: var(--cx-text-primary);
 }
 
-body[data-theme="dark"] .sd-card a {
-  color: var(--cyranyx-cyan);
+body .sd-card a {
+  color: var(--cx-link);
 }
 
-body[data-theme="dark"] .sd-card:hover {
-  border-color: var(--cyranyx-blue);
-  box-shadow: 0 0 24px rgba(0, 255, 200, 0.14);
+body .sd-card:hover {
+  border-color: var(--cx-link-hover);
+  box-shadow: var(--cx-glow-strong);
 }
 
-body[data-theme="dark"] .sd-card:hover .sd-card-title,
-body[data-theme="dark"] .sd-card:hover a {
-  color: var(--cyranyx-blue) !important;
+body .sd-card:hover .sd-card-title,
+body .sd-card:hover a {
+  color: var(--cx-link-hover) !important;
 }
 
 /* --------------------------------------------------------------------------
    9. Tables
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] table {
+body table {
   border-collapse: collapse;
-  border-color: var(--cyranyx-scarlet-border);
+  border-color: var(--cx-border);
 }
 
-body[data-theme="dark"] table,
-body[data-theme="dark"] table th,
-body[data-theme="dark"] table td {
-  border: 1px solid var(--cyranyx-scarlet-border) !important;
+body table,
+body table th,
+body table td {
+  border: 1px solid var(--cx-border) !important;
 }
 
-body[data-theme="dark"] thead,
-body[data-theme="dark"] table thead tr {
-  background-color: rgba(255, 0, 85, 0.08);
+body thead,
+body table thead tr {
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] table th {
-  color: var(--cyranyx-cyan);
+body table th {
+  color: var(--cx-link);
 }
 
-body[data-theme="dark"] table td {
-  color: var(--cyranyx-scarlet-soft);
+body table td {
+  color: var(--cx-text-primary);
 }
 
-body[data-theme="dark"] table tbody tr:hover {
-  background-color: var(--cyranyx-hover-blue-bg) !important;
+body table tbody tr:hover {
+  background-color: var(--cx-hover-bg-strong) !important;
 }
 
-body[data-theme="dark"] table tbody tr:hover td,
-body[data-theme="dark"] table tbody tr:hover code {
-  color: var(--cyranyx-blue) !important;
+body table tbody tr:hover td,
+body table tbody tr:hover code {
+  color: var(--cx-link-hover) !important;
 }
 
 /* --------------------------------------------------------------------------
    10. Blockquotes
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] blockquote {
-  color: var(--cyranyx-scarlet-soft);
-  border-color: var(--cyranyx-blue);
-  background-color: rgba(0, 162, 255, 0.05);
+body blockquote {
+  color: var(--cx-text-primary);
+  border-color: var(--cx-link-hover);
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] blockquote strong {
-  color: var(--cyranyx-green);
+body blockquote strong {
+  color: var(--cx-link);
 }
 
 /* --------------------------------------------------------------------------
    11. Admonitions
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .admonition {
-  background-color: rgba(27, 39, 56, 0.45);
-  border-color: var(--cyranyx-scarlet-border);
+body .admonition {
+  background-color: var(--cx-card-bg);
+  border-color: var(--cx-border);
 }
 
-body[data-theme="dark"] .admonition-title {
-  color: var(--cyranyx-cyan);
-  background-color: rgba(0, 162, 255, 0.08);
+body .admonition-title {
+  color: var(--cx-link);
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] .admonition.note .admonition-title {
-  color: var(--cyranyx-cyan);
+body .admonition.note .admonition-title {
+  color: var(--cx-link);
 }
 
-body[data-theme="dark"] .admonition.tip .admonition-title,
-body[data-theme="dark"] .admonition.hint .admonition-title {
+body .admonition.tip .admonition-title,
+body .admonition.hint .admonition-title {
   color: var(--cyranyx-green);
 }
 
-body[data-theme="dark"] .admonition.warning .admonition-title,
-body[data-theme="dark"] .admonition.caution .admonition-title {
+body .admonition.warning .admonition-title,
+body .admonition.caution .admonition-title {
   color: var(--cyranyx-warning);
 }
 
-body[data-theme="dark"] .admonition.danger .admonition-title,
-body[data-theme="dark"] .admonition.error .admonition-title {
+body .admonition.danger .admonition-title,
+body .admonition.error .admonition-title {
   color: var(--cyranyx-error);
 }
 
@@ -592,166 +630,166 @@ body[data-theme="dark"] .admonition.error .admonition-title {
    12. Code blocks / Pygments
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] pre,
-body[data-theme="dark"] .highlight,
-body[data-theme="dark"] .highlight pre,
-body[data-theme="dark"] div[class^="highlight"],
-body[data-theme="dark"] div[class^="highlight"] pre,
-body[data-theme="dark"] div[class*=" highlight-"],
-body[data-theme="dark"] div[class*=" highlight-"] pre {
-  background-color: var(--cyranyx-bg-code-deep) !important;
+body pre,
+body .highlight,
+body .highlight pre,
+body div[class^="highlight"],
+body div[class^="highlight"] pre,
+body div[class*=" highlight-"],
+body div[class*=" highlight-"] pre {
+  background-color: var(--cx-code-bg) !important;
 }
 
-body[data-theme="dark"] .highlight,
-body[data-theme="dark"] div[class^="highlight"],
-body[data-theme="dark"] div[class*=" highlight-"] {
-  border: 1px solid var(--cyranyx-scarlet-border) !important;
-  box-shadow: 0 0 20px rgba(255, 0, 85, 0.11);
+body .highlight,
+body div[class^="highlight"],
+body div[class*=" highlight-"] {
+  border: 1px solid var(--cx-border) !important;
+  box-shadow: var(--cx-glow-soft);
 }
 
-body[data-theme="dark"] .highlight pre,
-body[data-theme="dark"] .highlight code,
-body[data-theme="dark"] div[class^="highlight"] pre,
-body[data-theme="dark"] div[class^="highlight"] code {
-  color: var(--cyranyx-code-text) !important;
+body .highlight pre,
+body .highlight code,
+body div[class^="highlight"] pre,
+body div[class^="highlight"] code {
+  color: var(--cx-code-text) !important;
 }
 
 /* Comments */
-body[data-theme="dark"] .highlight .c,
-body[data-theme="dark"] .highlight .c1,
-body[data-theme="dark"] .highlight .cm,
-body[data-theme="dark"] .highlight .cp,
-body[data-theme="dark"] .highlight .cs {
+body .highlight .c,
+body .highlight .c1,
+body .highlight .cm,
+body .highlight .cp,
+body .highlight .cs {
   color: var(--cyranyx-code-comment) !important;
   font-style: italic;
 }
 
 /* Keywords */
-body[data-theme="dark"] .highlight .k,
-body[data-theme="dark"] .highlight .kc,
-body[data-theme="dark"] .highlight .kd,
-body[data-theme="dark"] .highlight .kn,
-body[data-theme="dark"] .highlight .kp,
-body[data-theme="dark"] .highlight .kr,
-body[data-theme="dark"] .highlight .kt {
+body .highlight .k,
+body .highlight .kc,
+body .highlight .kd,
+body .highlight .kn,
+body .highlight .kp,
+body .highlight .kr,
+body .highlight .kt {
   color: var(--cyranyx-code-keyword) !important;
 }
 
 /* Operators / punctuation */
-body[data-theme="dark"] .highlight .o,
-body[data-theme="dark"] .highlight .ow,
-body[data-theme="dark"] .highlight .p {
+body .highlight .o,
+body .highlight .ow,
+body .highlight .p {
   color: var(--cyranyx-code-operator) !important;
 }
 
 /* Functions */
-body[data-theme="dark"] .highlight .nf,
-body[data-theme="dark"] .highlight .fm {
+body .highlight .nf,
+body .highlight .fm {
   color: var(--cyranyx-code-function) !important;
 }
 
 /* Classes / types / tags */
-body[data-theme="dark"] .highlight .nc,
-body[data-theme="dark"] .highlight .nn,
-body[data-theme="dark"] .highlight .nt {
+body .highlight .nc,
+body .highlight .nn,
+body .highlight .nt {
   color: var(--cyranyx-code-class) !important;
 }
 
 /* Names / variables */
-body[data-theme="dark"] .highlight .n,
-body[data-theme="dark"] .highlight .nb,
-body[data-theme="dark"] .highlight .ni,
-body[data-theme="dark"] .highlight .nl,
-body[data-theme="dark"] .highlight .nv,
-body[data-theme="dark"] .highlight .vc,
-body[data-theme="dark"] .highlight .vg,
-body[data-theme="dark"] .highlight .vi,
-body[data-theme="dark"] .highlight .vm {
-  color: var(--cyranyx-code-text) !important;
+body .highlight .n,
+body .highlight .nb,
+body .highlight .ni,
+body .highlight .nl,
+body .highlight .nv,
+body .highlight .vc,
+body .highlight .vg,
+body .highlight .vi,
+body .highlight .vm {
+  color: var(--cx-code-text) !important;
 }
 
 /* Strings */
-body[data-theme="dark"] .highlight .s,
-body[data-theme="dark"] .highlight .s1,
-body[data-theme="dark"] .highlight .s2,
-body[data-theme="dark"] .highlight .sa,
-body[data-theme="dark"] .highlight .sb,
-body[data-theme="dark"] .highlight .sc,
-body[data-theme="dark"] .highlight .dl,
-body[data-theme="dark"] .highlight .sd,
-body[data-theme="dark"] .highlight .se,
-body[data-theme="dark"] .highlight .sh,
-body[data-theme="dark"] .highlight .si,
-body[data-theme="dark"] .highlight .sr,
-body[data-theme="dark"] .highlight .ss,
-body[data-theme="dark"] .highlight .sx {
+body .highlight .s,
+body .highlight .s1,
+body .highlight .s2,
+body .highlight .sa,
+body .highlight .sb,
+body .highlight .sc,
+body .highlight .dl,
+body .highlight .sd,
+body .highlight .se,
+body .highlight .sh,
+body .highlight .si,
+body .highlight .sr,
+body .highlight .ss,
+body .highlight .sx {
   color: var(--cyranyx-code-string) !important;
 }
 
 /* Numbers / constants */
-body[data-theme="dark"] .highlight .m,
-body[data-theme="dark"] .highlight .mb,
-body[data-theme="dark"] .highlight .mf,
-body[data-theme="dark"] .highlight .mh,
-body[data-theme="dark"] .highlight .mi,
-body[data-theme="dark"] .highlight .mo,
-body[data-theme="dark"] .highlight .il {
+body .highlight .m,
+body .highlight .mb,
+body .highlight .mf,
+body .highlight .mh,
+body .highlight .mi,
+body .highlight .mo,
+body .highlight .il {
   color: var(--cyranyx-code-number) !important;
 }
 
 /* Attributes / decorators */
-body[data-theme="dark"] .highlight .na,
-body[data-theme="dark"] .highlight .nd {
+body .highlight .na,
+body .highlight .nd {
   color: var(--cyranyx-code-attribute) !important;
 }
 
 /* Builtins / pseudo */
-body[data-theme="dark"] .highlight .bp {
+body .highlight .bp {
   color: var(--cyranyx-green) !important;
 }
 
 /* Errors */
-body[data-theme="dark"] .highlight .err {
+body .highlight .err {
   color: var(--cyranyx-error) !important;
   background-color: rgba(255, 24, 101, 0.12) !important;
 }
 
 /* Diffs */
-body[data-theme="dark"] .highlight .gi {
+body .highlight .gi {
   color: var(--cyranyx-green) !important;
   background-color: #00ff8427 !important;
 }
 
-body[data-theme="dark"] .highlight .gd {
+body .highlight .gd {
   color: var(--cyranyx-error) !important;
   background-color: #ff174534 !important;
 }
 
-body[data-theme="dark"] .highlight .gh,
-body[data-theme="dark"] .highlight .gu {
-  color: var(--cyranyx-cyan) !important;
+body .highlight .gh,
+body .highlight .gu {
+  color: var(--cx-link) !important;
 }
 
 /* Copy button from sphinx-copybutton */
-body[data-theme="dark"] button.copybtn,
-body[data-theme="dark"] .copybtn {
-  color: var(--cyranyx-cyan) !important;
-  border-color: var(--cyranyx-scarlet-border) !important;
-  background-color: rgba(20, 0, 9, 0.72) !important;
+body button.copybtn,
+body .copybtn {
+  color: var(--cx-link) !important;
+  border-color: var(--cx-border) !important;
+  background-color: var(--cx-inline-code-bg) !important;
 }
 
-body[data-theme="dark"] button.copybtn:hover,
-body[data-theme="dark"] .copybtn:hover {
-  color: var(--cyranyx-blue) !important;
-  border-color: var(--cyranyx-blue) !important;
-  background-color: rgba(0, 162, 255, 0.12) !important;
+body button.copybtn:hover,
+body .copybtn:hover {
+  color: var(--cx-link-hover) !important;
+  border-color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg) !important;
 }
 
 /* --------------------------------------------------------------------------
    13. Task checkboxes
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] input[type="checkbox"] {
+body input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
 
@@ -768,31 +806,31 @@ body[data-theme="dark"] input[type="checkbox"] {
 
   cursor: pointer;
 
-  background-color: var(--cyranyx-bg-code);
-  border: 1px solid var(--cyranyx-scarlet-dim);
+  background-color: var(--cx-inline-code-bg);
+  border: 1px solid var(--cx-text-muted);
   border-radius: 0.18em;
-  box-shadow: 0 0 8px rgba(255, 0, 85, 0.10);
+  box-shadow: var(--cx-glow-soft);
 }
 
-body[data-theme="dark"] input[type="checkbox"]:hover {
-  border-color: var(--cyranyx-blue);
-  box-shadow: 0 0 10px rgba(0, 162, 255, 0.16);
+body input[type="checkbox"]:hover {
+  border-color: var(--cx-link-hover);
+  box-shadow: var(--cx-glow-strong);
 }
 
-body[data-theme="dark"] input[type="checkbox"]:focus-visible {
-  outline: 2px solid var(--cyranyx-blue);
+body input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--cx-link-hover);
   outline-offset: 2px;
 }
 
-body[data-theme="dark"] input[type="checkbox"]:checked {
-  background-color: var(--cyranyx-cyan);
-  border-color: var(--cyranyx-cyan);
-  box-shadow: 0 0 12px rgba(0, 255, 200, 0.20);
+body input[type="checkbox"]:checked {
+  background-color: var(--cx-link);
+  border-color: var(--cx-link);
+  box-shadow: var(--cx-glow-strong);
 }
 
-body[data-theme="dark"] input[type="checkbox"]:checked::after {
+body input[type="checkbox"]:checked::after {
   content: "✓";
-  color: var(--cyranyx-bg-editor);
+  color: var(--cx-bg-primary);
   font-weight: 900;
   font-size: 0.92em;
   line-height: 1;
@@ -802,55 +840,139 @@ body[data-theme="dark"] input[type="checkbox"]:checked::after {
    14. Footnotes
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .footnote,
-body[data-theme="dark"] aside.footnote {
-  color: var(--cyranyx-scarlet-soft);
+body .footnote,
+body aside.footnote {
+  color: var(--cx-text-primary);
 }
 
-body[data-theme="dark"] .footnote:hover,
-body[data-theme="dark"] aside.footnote:hover,
-body[data-theme="dark"] li.footnote:hover {
-  background-color: var(--cyranyx-hover-blue-bg);
+body .footnote:hover,
+body aside.footnote:hover,
+body li.footnote:hover {
+  background-color: var(--cx-hover-bg);
 }
 
-body[data-theme="dark"] .footnote:hover a,
-body[data-theme="dark"] aside.footnote:hover a,
-body[data-theme="dark"] li.footnote:hover a {
-  color: var(--cyranyx-blue) !important;
+body .footnote:hover a,
+body aside.footnote:hover a,
+body li.footnote:hover a {
+  color: var(--cx-link-hover) !important;
 }
 
 /* --------------------------------------------------------------------------
    15. LaTeX / MathJax emphasis
    -------------------------------------------------------------------------- */
 
-body[data-theme="dark"] .math,
-body[data-theme="dark"] mjx-container,
-body[data-theme="dark"] .MathJax {
-  color: var(--cyranyx-cyan) !important;
+body .math,
+body mjx-container,
+body .MathJax {
+  color: var(--cx-link) !important;
   text-shadow:
-    0 0 10px rgba(0, 255, 200, 0.18),
-    0 0 22px rgba(0, 162, 255, 0.10);
+    0 0 10px color-mix(in srgb, var(--cx-link) 18%, transparent),
+    0 0 22px color-mix(in srgb, var(--cx-link-hover) 10%, transparent);
 }
 
-/* Inline math: slightly softer, so it does not overpower normal text */
-body[data-theme="dark"] span.math,
-body[data-theme="dark"] span.math mjx-container {
-  color: #76c1ff !important;
-  text-shadow: 0 0 8px rgba(0, 162, 255, 0.18);
+body span.math,
+body span.math mjx-container {
+  color: var(--cyranyx-code-string) !important;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--cx-link-hover) 18%, transparent);
 }
 
-/* Block math: stronger visual focus */
-body[data-theme="dark"] div.math,
-body[data-theme="dark"] div.math mjx-container {
-  color: var(--cyranyx-cyan) !important;
+body div.math,
+body div.math mjx-container {
+  color: var(--cx-link) !important;
   text-shadow:
-    0 0 12px rgba(0, 255, 200, 0.22),
-    0 0 28px rgba(0, 162, 255, 0.12);
+    0 0 12px color-mix(in srgb, var(--cx-link) 22%, transparent),
+    0 0 28px color-mix(in srgb, var(--cx-link-hover) 12%, transparent);
 }
 
-/* If MathJax renders as SVG, force SVG glyphs to follow the math color. */
-body[data-theme="dark"] mjx-container svg {
+body mjx-container svg {
   color: inherit !important;
   fill: currentColor !important;
   stroke: currentColor !important;
+}
+
+/* --------------------------------------------------------------------------
+   Final minimal polish: preview contrast, visited links, auto-dark mapping
+   -------------------------------------------------------------------------- */
+
+/* 1. Light/auto-light preview title: make electronic-blue accents clearer. */
+body[data-theme="light"] .preview-title,
+body[data-theme="auto"] .preview-title {
+  color: #006f8f !important;
+  border-color: #005fb8 !important;
+  background-color: rgba(0, 111, 143, 0.06);
+  box-shadow:
+    0 0 14px rgba(0, 95, 184, 0.16),
+    0 0 24px rgba(0, 111, 143, 0.10);
+}
+
+body[data-theme="light"] .preview-chip,
+body[data-theme="auto"] .preview-chip {
+  color: #b8003d !important;
+  border-color: rgba(184, 0, 61, 0.28);
+  background-color: rgba(184, 0, 61, 0.06);
+}
+
+/* 2. Disable visited-link purple. */
+body a:visited,
+body article a:visited,
+body main a:visited,
+body .content a:visited,
+body .sidebar-tree a:visited,
+body .toc-tree a:visited,
+body .related-pages a:visited {
+  color: inherit;
+}
+
+/* For normal content links, visited should look like normal links. */
+body[data-theme="dark"] article a:visited,
+body[data-theme="dark"] main a:visited,
+body[data-theme="dark"] .content a:visited {
+  color: var(--cyranyx-cyan) !important;
+}
+
+body[data-theme="light"] article a:visited,
+body[data-theme="light"] main a:visited,
+body[data-theme="light"] .content a:visited,
+body[data-theme="auto"] article a:visited,
+body[data-theme="auto"] main a:visited,
+body[data-theme="auto"] .content a:visited {
+  color: #006f8f !important;
+}
+
+/* Hover should still win. */
+body a:visited:hover,
+body article a:visited:hover,
+body main a:visited:hover,
+body .content a:visited:hover,
+body .sidebar-tree a:visited:hover,
+body .toc-tree a:visited:hover,
+body .related-pages a:visited:hover {
+  color: var(--cyranyx-blue, #00a2ff) !important;
+}
+
+/* 3. Auto mode: do not change Furo state or icon.
+      Only map auto visually when system is dark. */
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] {
+    --color-brand-primary: var(--cyranyx-scarlet);
+    --color-brand-content: var(--cyranyx-cyan);
+
+    --color-link: var(--cyranyx-cyan);
+    --color-link--hover: var(--cyranyx-blue);
+
+    --color-foreground-primary: var(--cyranyx-scarlet-soft);
+    --color-foreground-secondary: #be4e74;
+    --color-foreground-muted: var(--cyranyx-scarlet-dim);
+    --color-foreground-border: var(--cyranyx-scarlet-border);
+
+    --color-background-primary: var(--cyranyx-bg-editor);
+    --color-background-secondary: var(--cyranyx-bg-sidebar);
+    --color-background-hover: var(--cyranyx-bg-hover);
+    --color-background-hover--transparent: var(--cyranyx-hover-blue-bg);
+    --color-background-border: var(--cyranyx-scarlet-border);
+
+    --color-inline-code-background: var(--cyranyx-bg-code);
+    --color-inline-code-foreground: var(--cyranyx-cyan);
+    --color-inline-code-border: var(--cyranyx-scarlet-border);
+  }
 }

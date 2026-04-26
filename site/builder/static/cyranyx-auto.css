@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Cyranyx auto theme mapping
+
+   This file does not modify Furo's data-theme state.
+   Furo can keep its correct three-state UI:
+   light -> dark -> auto
+
+   Auto only maps active Cyranyx variables according to system preference.
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] {
+    --cx-bg-primary: var(--cyranyx-bg-editor);
+    --cx-bg-secondary: var(--cyranyx-bg-sidebar);
+    --cx-bg-panel: var(--cyranyx-bg-panel);
+    --cx-bg-code: var(--cyranyx-bg-code);
+    --cx-bg-code-deep: var(--cyranyx-bg-code-deep);
+    --cx-bg-hover: var(--cyranyx-bg-hover);
+
+    --cx-text-primary: var(--cyranyx-scarlet-soft);
+    --cx-text-secondary: #be4e74;
+    --cx-text-muted: var(--cyranyx-scarlet-dim);
+
+    --cx-brand: var(--cyranyx-scarlet);
+    --cx-brand-content: var(--cyranyx-cyan);
+
+    --cx-link: var(--cyranyx-cyan);
+    --cx-link-hover: var(--cyranyx-blue);
+
+    --cx-border: var(--cyranyx-scarlet-border);
+    --cx-border-strong: var(--cyranyx-scarlet-hot);
+
+    --cx-hover-bg: rgba(0, 162, 255, 0.13);
+    --cx-hover-bg-strong: rgba(0, 162, 255, 0.18);
+
+    --cx-heading-h1: #ff4f91;
+    --cx-heading-h2: #ff2f75;
+    --cx-heading-h3: #20f6ff;
+    --cx-heading-h4: #00d9ff;
+    --cx-heading-h5: #00b0ff;
+    --cx-heading-h6: #3d81fe;
+
+    --cx-inline-code-bg: var(--cyranyx-bg-code);
+    --cx-inline-code-text: var(--cyranyx-cyan);
+    --cx-code-bg: var(--cyranyx-bg-code-deep);
+    --cx-code-text: var(--cyranyx-code-text);
+
+    --cx-card-bg:
+      linear-gradient(
+        135deg,
+        rgba(255, 0, 85, 0.08),
+        rgba(0, 162, 255, 0.05)
+      );
+
+    --cx-glow-soft: 0 0 20px rgba(255, 0, 85, 0.11);
+    --cx-glow-strong: 0 0 24px rgba(0, 255, 200, 0.14);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body[data-theme="auto"] {
+    --cx-bg-primary: var(--cyranyx-light-bg-primary);
+    --cx-bg-secondary: var(--cyranyx-light-bg-secondary);
+    --cx-bg-panel: var(--cyranyx-light-bg-panel);
+    --cx-bg-code: var(--cyranyx-light-bg-code);
+    --cx-bg-code-deep: var(--cyranyx-light-bg-code-deep);
+    --cx-bg-hover: #dff7ff;
+
+    --cx-text-primary: var(--cyranyx-light-text-primary);
+    --cx-text-secondary: var(--cyranyx-light-text-secondary);
+    --cx-text-muted: var(--cyranyx-light-text-muted);
+
+    --cx-brand: var(--cyranyx-light-scarlet);
+    --cx-brand-content: var(--cyranyx-light-cyan);
+
+    --cx-link: var(--cyranyx-light-cyan);
+    --cx-link-hover: var(--cyranyx-light-scarlet);
+
+    --cx-border: var(--cyranyx-light-border);
+    --cx-border-strong: var(--cyranyx-light-scarlet-hot);
+
+    --cx-hover-bg: rgba(0, 162, 255, 0.12);
+    --cx-hover-bg-strong: rgba(184, 0, 61, 0.11);
+
+    --cx-heading-h1: #b8003d;
+    --cx-heading-h2: #d4004a;
+    --cx-heading-h3: #006f8f;
+    --cx-heading-h4: #005fb8;
+    --cx-heading-h5: #6d2db8;
+    --cx-heading-h6: #7a4d00;
+
+    --cx-inline-code-bg: #fffafd;
+    --cx-inline-code-text: #006f8f;
+    --cx-code-bg: #fff6fb;
+    --cx-code-text: #260010;
+
+    --cx-card-bg:
+      linear-gradient(
+        135deg,
+        rgba(184, 0, 61, 0.08),
+        rgba(0, 162, 255, 0.08)
+      );
+
+    --cx-glow-soft: 0 0 18px rgba(184, 0, 61, 0.11);
+    --cx-glow-strong: 0 0 22px rgba(0, 162, 255, 0.13);
+  }
+}
+
+/* Auto-light syntax readability overrides */
+@media (prefers-color-scheme: light) {
+  body[data-theme="auto"] .highlight .c,
+  body[data-theme="auto"] .highlight .c1,
+  body[data-theme="auto"] .highlight .cm,
+  body[data-theme="auto"] .highlight .cp,
+  body[data-theme="auto"] .highlight .cs {
+    color: #6c628f !important;
+  }
+
+  body[data-theme="auto"] .highlight .k,
+  body[data-theme="auto"] .highlight .kc,
+  body[data-theme="auto"] .highlight .kd,
+  body[data-theme="auto"] .highlight .kn,
+  body[data-theme="auto"] .highlight .kp,
+  body[data-theme="auto"] .highlight .kr,
+  body[data-theme="auto"] .highlight .kt {
+    color: #8a24c9 !important;
+  }
+
+  body[data-theme="auto"] .highlight .o,
+  body[data-theme="auto"] .highlight .ow,
+  body[data-theme="auto"] .highlight .p,
+  body[data-theme="auto"] .highlight .nf,
+  body[data-theme="auto"] .highlight .fm {
+    color: #005fb8 !important;
+  }
+
+  body[data-theme="auto"] .highlight .nc,
+  body[data-theme="auto"] .highlight .nn,
+  body[data-theme="auto"] .highlight .nt,
+  body[data-theme="auto"] .highlight .bp {
+    color: #007a55 !important;
+  }
+
+  body[data-theme="auto"] .highlight .s,
+  body[data-theme="auto"] .highlight .s1,
+  body[data-theme="auto"] .highlight .s2,
+  body[data-theme="auto"] .highlight .sa,
+  body[data-theme="auto"] .highlight .sb,
+  body[data-theme="auto"] .highlight .sc,
+  body[data-theme="auto"] .highlight .dl,
+  body[data-theme="auto"] .highlight .sd,
+  body[data-theme="auto"] .highlight .se,
+  body[data-theme="auto"] .highlight .sh,
+  body[data-theme="auto"] .highlight .si,
+  body[data-theme="auto"] .highlight .sr,
+  body[data-theme="auto"] .highlight .ss,
+  body[data-theme="auto"] .highlight .sx {
+    color: #006f8f !important;
+  }
+
+  body[data-theme="auto"] .highlight .m,
+  body[data-theme="auto"] .highlight .mb,
+  body[data-theme="auto"] .highlight .mf,
+  body[data-theme="auto"] .highlight .mh,
+  body[data-theme="auto"] .highlight .mi,
+  body[data-theme="auto"] .highlight .mo,
+  body[data-theme="auto"] .highlight .il {
+    color: #7a4d00 !important;
+  }
+
+  body[data-theme="auto"] .highlight .na,
+  body[data-theme="auto"] .highlight .nd {
+    color: #a0008f !important;
+  }
+}

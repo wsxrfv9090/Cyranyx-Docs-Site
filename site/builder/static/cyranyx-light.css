@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Cyranyx light theme mapping
+
+   Principle:
+   - This is not Furo default light.
+   - It is a readable inverse of the Cyranyx cyberpunk dark palette.
+   ========================================================================== */
+
+body[data-theme="light"] {
+  --cx-bg-primary: var(--cyranyx-light-bg-primary);
+  --cx-bg-secondary: var(--cyranyx-light-bg-secondary);
+  --cx-bg-panel: var(--cyranyx-light-bg-panel);
+  --cx-bg-code: var(--cyranyx-light-bg-code);
+  --cx-bg-code-deep: var(--cyranyx-light-bg-code-deep);
+  --cx-bg-hover: #dff7ff;
+
+  --cx-text-primary: var(--cyranyx-light-text-primary);
+  --cx-text-secondary: var(--cyranyx-light-text-secondary);
+  --cx-text-muted: var(--cyranyx-light-text-muted);
+
+  --cx-brand: var(--cyranyx-light-scarlet);
+  --cx-brand-content: var(--cyranyx-light-cyan);
+
+  --cx-link: var(--cyranyx-light-cyan);
+  --cx-link-hover: var(--cyranyx-light-scarlet);
+
+  --cx-border: var(--cyranyx-light-border);
+  --cx-border-strong: var(--cyranyx-light-scarlet-hot);
+
+  --cx-hover-bg: rgba(0, 162, 255, 0.12);
+  --cx-hover-bg-strong: rgba(184, 0, 61, 0.11);
+
+  --cx-heading-h1: #b8003d;
+  --cx-heading-h2: #d4004a;
+  --cx-heading-h3: #006f8f;
+  --cx-heading-h4: #005fb8;
+  --cx-heading-h5: #6d2db8;
+  --cx-heading-h6: #7a4d00;
+
+  --cx-inline-code-bg: #fffafd;
+  --cx-inline-code-text: #006f8f;
+  --cx-code-bg: #fff6fb;
+  --cx-code-text: #260010;
+
+  --cx-card-bg:
+    linear-gradient(
+      135deg,
+      rgba(184, 0, 61, 0.08),
+      rgba(0, 162, 255, 0.08)
+    );
+
+  --cx-glow-soft: 0 0 18px rgba(184, 0, 61, 0.11);
+  --cx-glow-strong: 0 0 22px rgba(0, 162, 255, 0.13);
+}
+
+/* Light-specific syntax readability overrides */
+body[data-theme="light"] .highlight .c,
+body[data-theme="light"] .highlight .c1,
+body[data-theme="light"] .highlight .cm,
+body[data-theme="light"] .highlight .cp,
+body[data-theme="light"] .highlight .cs {
+  color: #6c628f !important;
+}
+
+body[data-theme="light"] .highlight .k,
+body[data-theme="light"] .highlight .kc,
+body[data-theme="light"] .highlight .kd,
+body[data-theme="light"] .highlight .kn,
+body[data-theme="light"] .highlight .kp,
+body[data-theme="light"] .highlight .kr,
+body[data-theme="light"] .highlight .kt {
+  color: #8a24c9 !important;
+}
+
+body[data-theme="light"] .highlight .o,
+body[data-theme="light"] .highlight .ow,
+body[data-theme="light"] .highlight .p,
+body[data-theme="light"] .highlight .nf,
+body[data-theme="light"] .highlight .fm {
+  color: #005fb8 !important;
+}
+
+body[data-theme="light"] .highlight .nc,
+body[data-theme="light"] .highlight .nn,
+body[data-theme="light"] .highlight .nt,
+body[data-theme="light"] .highlight .bp {
+  color: #007a55 !important;
+}
+
+body[data-theme="light"] .highlight .s,
+body[data-theme="light"] .highlight .s1,
+body[data-theme="light"] .highlight .s2,
+body[data-theme="light"] .highlight .sa,
+body[data-theme="light"] .highlight .sb,
+body[data-theme="light"] .highlight .sc,
+body[data-theme="light"] .highlight .dl,
+body[data-theme="light"] .highlight .sd,
+body[data-theme="light"] .highlight .se,
+body[data-theme="light"] .highlight .sh,
+body[data-theme="light"] .highlight .si,
+body[data-theme="light"] .highlight .sr,
+body[data-theme="light"] .highlight .ss,
+body[data-theme="light"] .highlight .sx {
+  color: #006f8f !important;
+}
+
+body[data-theme="light"] .highlight .m,
+body[data-theme="light"] .highlight .mb,
+body[data-theme="light"] .highlight .mf,
+body[data-theme="light"] .highlight .mh,
+body[data-theme="light"] .highlight .mi,
+body[data-theme="light"] .highlight .mo,
+body[data-theme="light"] .highlight .il {
+  color: #7a4d00 !important;
+}
+
+body[data-theme="light"] .highlight .na,
+body[data-theme="light"] .highlight .nd {
+  color: #a0008f !important;
+}
