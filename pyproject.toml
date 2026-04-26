@@ -1,0 +1,18 @@
+[project]
+name = "cyranyx"
+version = "0.1.0"
+description = "A Python-first documentation prototype for Cyranyx."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+docs = [
+  "sphinx>=8,<9",
+  "myst-parser>=4,<5",
+  "furo>=2024.8.6",
+  "sphinx-design>=0.6,<1",
+]
+
+[dependency-groups]
+dev = []
