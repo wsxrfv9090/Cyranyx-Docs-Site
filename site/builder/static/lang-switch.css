@@ -2,12 +2,14 @@
    Cyranyx language switcher
    ============================================================================ */
 
-.cyranyx-lang-switch {
-  position: fixed;
-  top: 0.82rem;
-  right: 4.35rem;
-  z-index: 50;
+.cyranyx-header-control-row {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.42rem;
+  overflow: visible !important;
+}
 
+.cyranyx-lang-switch {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +38,7 @@
   line-height: 1;
   letter-spacing: 0.02em;
   text-decoration: none !important;
+  white-space: nowrap;
 
   transition:
     color 120ms ease,
@@ -65,19 +68,35 @@
   transform: translateY(0);
 }
 
+.cyranyx-lang-switch--inline {
+  position: relative;
+  z-index: 20;
+  flex: 0 0 auto;
+}
+
+.cyranyx-lang-switch--fallback-fixed {
+  position: fixed;
+  top: 0.82rem;
+  right: 4.35rem;
+  z-index: 100;
+}
+
 @media (max-width: 60rem) {
   .cyranyx-lang-switch {
-    top: 0.68rem;
-    right: 6.4rem;
     min-width: 2.9rem;
     min-height: 1.65rem;
     padding-inline: 0.5rem;
     font-size: 0.76rem;
   }
+
+  .cyranyx-lang-switch--fallback-fixed {
+    top: 0.68rem;
+    right: 6.4rem;
+  }
 }
 
 @media (max-width: 36rem) {
-  .cyranyx-lang-switch {
+  .cyranyx-lang-switch--fallback-fixed {
     right: 5.5rem;
   }
 }

@@ -41,6 +41,7 @@
     var normalized = normalizePath(pathname);
     var marker = "/" + lang + "/";
     var index = normalized.indexOf(marker);
+
     if (index >= 0) {
       return normalized.slice(0, index + 1);
     }
@@ -49,13 +50,63 @@
     var langIndex = parts.findIndex(function (part) {
       return part === "en" || part === "zh";
     });
+
     if (langIndex >= 0) {
       return parts.slice(0, langIndex).join("/") + "/";
     }
+
     return "";
   }
 
+  function isVisible(element) {
+    if (!element) {
+      return false;
+    }
+
+    var style = window.getComputedStyle(element);
+    if (
+      style.display === "none" ||
+      style.visibility === "hidden" ||
+      style.opacity === "0"
+    ) {
+      return false;
+    }
+
+    var rect = element.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0;
+  }
+
+  function findVisibleThemeToggle() {
+    var selectors = [
+      ".theme-toggle-container",
+      "button.theme-toggle",
+      ".theme-toggle",
+      "[data-theme-toggle]",
+      "[aria-label*='theme' i]",
+      "[title*='theme' i]",
+    ];
+
+    var candidates = [];
+
+    selectors.forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (element) {
+        if (!candidates.includes(element)) {
+          candidates.push(element);
+        }
+      });
+    });
+
+    var visible = candidates.find(isVisible);
+    return visible || candidates[candidates.length - 1] || null;
+  }
+
   function createButton() {
+    var existing = document.querySelector(".cyranyx-lang-switch");
+    if (existing) {
+      mountButton(existing);
+      return;
+    }
+
     var currentLang = findLanguage(window.location.pathname);
     var targetLang = currentLang === "zh" ? "en" : "zh";
 
@@ -74,6 +125,48 @@
       switchLanguage(currentLang, targetLang);
     });
 
+    mountButton(button);
+  }
+
+  function mountButton(button) {
+    var themeToggle = findVisibleThemeToggle();
+
+    if (themeToggle) {
+      var mountTarget = themeToggle;
+
+      if (
+        themeToggle.classList.contains("theme-toggle") ||
+        themeToggle.tagName.toLowerCase() === "button"
+      ) {
+        mountTarget = themeToggle.parentElement || themeToggle;
+      }
+
+      if (mountTarget.parentElement && isVisible(mountTarget.parentElement)) {
+        mountTarget.parentElement.classList.add("cyranyx-header-control-row");
+        button.classList.remove("cyranyx-lang-switch--fallback-fixed");
+        button.classList.add("cyranyx-lang-switch--inline");
+        mountTarget.parentElement.insertBefore(button, mountTarget);
+        return;
+      }
+    }
+
+    var headerArea =
+      document.querySelector(".article-header-buttons") ||
+      document.querySelector(".content-icon-container") ||
+      document.querySelector(".top-right-area") ||
+      document.querySelector(".header-article") ||
+      document.querySelector("header");
+
+    if (headerArea && isVisible(headerArea)) {
+      headerArea.classList.add("cyranyx-header-control-row");
+      button.classList.remove("cyranyx-lang-switch--fallback-fixed");
+      button.classList.add("cyranyx-lang-switch--inline");
+      headerArea.insertBefore(button, headerArea.firstChild);
+      return;
+    }
+
+    button.classList.remove("cyranyx-lang-switch--inline");
+    button.classList.add("cyranyx-lang-switch--fallback-fixed");
     document.body.appendChild(button);
   }
 
@@ -82,6 +175,7 @@
       .then(function (payload) {
         var key = outputKey(window.location.pathname);
         var target = payload && payload.map ? payload.map[key] : null;
+
         if (!target) {
           target = targetLang + "/index.html";
         }
@@ -109,9 +203,16 @@
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", createButton);
-  } else {
+  function init() {
     createButton();
+
+    window.setTimeout(createButton, 150);
+    window.setTimeout(createButton, 500);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
