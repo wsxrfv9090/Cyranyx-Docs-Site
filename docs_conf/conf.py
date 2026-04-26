@@ -7,7 +7,12 @@ copyright = "2026, Davy"
 extensions = [
     "myst_parser",
     "sphinx_design",
+    "sphinx_copybutton",
 ]
+
+copybutton_prompt_text = r">>> |\.\.\. |\$ |PS [^>]+> "
+copybutton_prompt_is_regexp = True
+copybutton_only_copy_prompt_lines = False
 
 source_suffix = {
     ".rst": "restructuredtext",
