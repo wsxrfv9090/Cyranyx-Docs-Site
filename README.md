@@ -1,6 +1,6 @@
-# Cyranyx Docs Prototype
+# Cyranyx Docs Site
 
-Python-first documentation prototype for Cyranyx.
+Python-first documentation site for Cyranyx.
 
 ## Setup
 
@@ -17,7 +17,20 @@ uv run python scripts/build_docs.py
 ## Open
 
 ```powershell
-start .\docs\_build\html\index.html
+start .\docs_conf\build\html\index.html
+```
+
+## Structure
+
+```text
+docs/
+  Markdown content only.
+
+docs_conf/
+  Sphinx configuration, static assets, templates, and build output.
+
+scripts/
+  Build and publish scripts.
 ```
 
 ## Stack
@@ -29,4 +42,4 @@ start .\docs\_build\html\index.html
 
 ## Goal
 
-Validate whether Cyranyx documentation can move from a frontend-heavy MkDocs/Material setup to a Python-first documentation workflow.
+Build a Python-first documentation frontend for Cyranyx, including Cyranyx-native content and Exitok-related documentation.

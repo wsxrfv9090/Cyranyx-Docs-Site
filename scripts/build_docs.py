@@ -7,8 +7,10 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DOCS_DIR = REPO_ROOT / "docs"
-BUILD_DIR = DOCS_DIR / "_build" / "html"
+
+CONTENT_DIR = REPO_ROOT / "docs"
+CONF_DIR = REPO_ROOT / "docs_conf"
+BUILD_DIR = CONF_DIR / "build" / "html"
 
 
 def main() -> int:
@@ -21,11 +23,16 @@ def main() -> int:
         "sphinx",
         "-b",
         "html",
-        str(DOCS_DIR),
+        "-c",
+        str(CONF_DIR),
+        str(CONTENT_DIR),
         str(BUILD_DIR),
     ]
 
     print("[docs] building Sphinx site")
+    print(f"[docs] content_dir : {CONTENT_DIR}")
+    print(f"[docs] config_dir  : {CONF_DIR}")
+    print(f"[docs] build_dir   : {BUILD_DIR}")
     print("[docs]", " ".join(cmd))
 
     subprocess.run(cmd, check=True)

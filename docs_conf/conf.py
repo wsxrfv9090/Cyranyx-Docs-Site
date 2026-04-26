@@ -14,6 +14,8 @@ source_suffix = {
     ".md": "markdown",
 }
 
+root_doc = "index"
+
 myst_enable_extensions = [
     "colon_fence",
     "deflist",
@@ -24,8 +26,8 @@ myst_enable_extensions = [
 html_theme = "furo"
 html_title = "Cyranyx Documentation"
 
-html_static_path = ["_static"]
-templates_path = ["_templates"]
+html_static_path = ["static"]
+templates_path = ["templates"]
 
 html_css_files = [
     "cyranyx.css",
