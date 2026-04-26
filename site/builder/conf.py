@@ -1,8 +1,17 @@
 from __future__ import annotations
 
+import os
+
+
 project = "Cyranyx Documentation"
 author = "Davy"
 copyright = "2026, Davy"
+
+_current_lang = os.getenv("CYRANYX_DOCS_LANG", "en")
+_language_titles = {
+    "en": "Cyranyx Documentation",
+    "zh": "Cyranyx 文档",
+}
 
 extensions = [
     "myst_parser",
@@ -36,13 +45,20 @@ html_show_sourcelink = False
 html_permalinks = False
 
 html_theme = "furo"
-html_title = "Cyranyx Documentation"
+html_title = _language_titles.get(_current_lang, _language_titles["en"])
+html_context = {
+    "cyranyx_docs_lang": _current_lang,
+}
 
 html_static_path = ["static"]
 templates_path = ["templates"]
 
 html_css_files = [
     "cyranyx.css",
+]
+
+html_js_files = [
+    "lang-switch.js",
 ]
 
 html_theme_options = {
