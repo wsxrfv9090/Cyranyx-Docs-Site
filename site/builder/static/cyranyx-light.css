@@ -118,3 +118,65 @@ body[data-theme="light"] .highlight .na,
 body[data-theme="light"] .highlight .nd {
   color: #a0008f !important;
 }
+
+/* --------------------------------------------------------------------------
+   Light-only final polish
+
+   Scope:
+   - Fix cyan-border diagnostic color.
+   - Improve preview title contrast.
+   - Improve solid button text contrast.
+   - Do not affect dark theme.
+   -------------------------------------------------------------------------- */
+
+body[data-theme="light"] {
+  --cyranyx-accent-cyan: #007fa3;
+  --cyranyx-border-cyan: #007fa3;
+  --cyranyx-glow-cyan:
+    0 0 18px rgba(0, 127, 163, 0.16),
+    0 0 28px rgba(0, 95, 184, 0.10);
+}
+
+/* Color check: make the explicit cyan-border row actually cyan in light mode. */
+body[data-theme="light"] .color-grid > .color-row:nth-of-type(6) .color-name code,
+body[data-theme="light"] .color-grid > .color-row:nth-of-type(6) .color-value code {
+  color: #007fa3 !important;
+}
+
+body[data-theme="light"] .color-grid > .color-row:nth-of-type(6) .color-swatch {
+  color: #007fa3 !important;
+  border-color: #007fa3 !important;
+  box-shadow:
+    0 0 14px rgba(0, 127, 163, 0.14),
+    0 0 24px rgba(0, 95, 184, 0.08) !important;
+}
+
+/* Preview panels: use a darker cyan/blue in light mode for readability. */
+body[data-theme="light"] .preview-title {
+  color: #007fa3 !important;
+  border-color: #0077c8 !important;
+  background-color: rgba(0, 127, 163, 0.045);
+  box-shadow:
+    0 0 14px rgba(0, 127, 163, 0.14),
+    0 0 24px rgba(0, 95, 184, 0.08);
+}
+
+/* Filled sphinx-design buttons: keep text readable on scarlet background. */
+body[data-theme="light"] .sd-btn-primary,
+body[data-theme="light"] a.sd-btn-primary,
+body[data-theme="light"] button.sd-btn-primary {
+  color: #fff4f8 !important;
+  background-color: var(--cx-brand) !important;
+  border-color: var(--cx-brand) !important;
+}
+
+body[data-theme="light"] .sd-btn-primary:hover,
+body[data-theme="light"] a.sd-btn-primary:hover,
+body[data-theme="light"] button.sd-btn-primary:hover,
+body[data-theme="light"] .sd-btn-primary:focus-visible,
+body[data-theme="light"] a.sd-btn-primary:focus-visible,
+body[data-theme="light"] button.sd-btn-primary:focus-visible {
+  color: #ffffff !important;
+  background-color: var(--cx-border-strong) !important;
+  border-color: var(--cx-border-strong) !important;
+}

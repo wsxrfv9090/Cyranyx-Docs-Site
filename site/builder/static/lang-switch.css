@@ -37,8 +37,7 @@
     color 120ms ease,
     border-color 120ms ease,
     background-color 120ms ease,
-    box-shadow 120ms ease,
-    transform 120ms ease;
+    box-shadow 120ms ease;
 }
 
 .cyranyx-lang-switch:hover,

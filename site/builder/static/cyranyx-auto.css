@@ -173,3 +173,62 @@
     color: #a0008f !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Auto-light final polish
+
+   Must mirror the light-only fixes, but only when:
+   - Furo theme is auto
+   - system preference is light
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: light) {
+  body[data-theme="auto"] {
+    --cyranyx-accent-cyan: #007fa3;
+    --cyranyx-border-cyan: #007fa3;
+    --cyranyx-glow-cyan:
+      0 0 18px rgba(0, 127, 163, 0.16),
+      0 0 28px rgba(0, 95, 184, 0.10);
+  }
+
+  body[data-theme="auto"] .color-grid > .color-row:nth-of-type(6) .color-name code,
+  body[data-theme="auto"] .color-grid > .color-row:nth-of-type(6) .color-value code {
+    color: #007fa3 !important;
+  }
+
+  body[data-theme="auto"] .color-grid > .color-row:nth-of-type(6) .color-swatch {
+    color: #007fa3 !important;
+    border-color: #007fa3 !important;
+    box-shadow:
+      0 0 14px rgba(0, 127, 163, 0.14),
+      0 0 24px rgba(0, 95, 184, 0.08) !important;
+  }
+
+  body[data-theme="auto"] .preview-title {
+    color: #007fa3 !important;
+    border-color: #0077c8 !important;
+    background-color: rgba(0, 127, 163, 0.045);
+    box-shadow:
+      0 0 14px rgba(0, 127, 163, 0.14),
+      0 0 24px rgba(0, 95, 184, 0.08);
+  }
+
+  body[data-theme="auto"] .sd-btn-primary,
+  body[data-theme="auto"] a.sd-btn-primary,
+  body[data-theme="auto"] button.sd-btn-primary {
+    color: #fff4f8 !important;
+    background-color: var(--cx-brand) !important;
+    border-color: var(--cx-brand) !important;
+  }
+
+  body[data-theme="auto"] .sd-btn-primary:hover,
+  body[data-theme="auto"] a.sd-btn-primary:hover,
+  body[data-theme="auto"] button.sd-btn-primary:hover,
+  body[data-theme="auto"] .sd-btn-primary:focus-visible,
+  body[data-theme="auto"] a.sd-btn-primary:focus-visible,
+  body[data-theme="auto"] button.sd-btn-primary:focus-visible {
+    color: #ffffff !important;
+    background-color: var(--cx-border-strong) !important;
+    border-color: var(--cx-border-strong) !important;
+  }
+}

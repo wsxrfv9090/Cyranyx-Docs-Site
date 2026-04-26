@@ -100,7 +100,7 @@ Nested ordered list:
 ## 6. Markdown table
 
 | Component | Current role | Future direction |
-|---|---|---|
+| --- | --- | --- |
 | `docs/` | Markdown content only | Cyranyx, Exitok, Research, API |
 | `docs_conf/` | Sphinx configuration and build output | Theme, CSS, templates, build artifacts |
 | `scripts/` | Build and publish entry points | Build, publish, validate links |
@@ -110,7 +110,7 @@ Nested ordered list:
 Alignment test:
 
 | Left | Center | Right |
-|:---|:---:|---:|
+| :--- | :---: | ---: |
 | alpha | beta | 1.234 |
 | gamma | delta | 56.78 |
 | epsilon | zeta | 9000 |

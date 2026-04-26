@@ -4,6 +4,7 @@ This page is used to test the current Cyranyx visual system under the Sphinx + F
 
 It intentionally includes a small amount of inline HTML because Markdown alone cannot render color swatches. This file is a diagnostic page, not a normal writing template.
 
+<!-- markdownlint-disable MD033 -->
 <style>
 .color-grid {
   display: grid;
@@ -74,11 +75,13 @@ It intentionally includes a small amount of inline HTML because Markdown alone c
   background: rgba(255, 79, 216, 0.06);
 }
 </style>
+<!-- markdownlint-enable MD033 -->
 
 ## 1. Current Cyranyx design variables
 
 These variables come from `docs_conf/static/cyranyx.css`.
 
+<!-- markdownlint-disable MD033 -->
 <div class="color-grid">
 
 <div class="color-row">
@@ -153,6 +156,7 @@ These variables come from `docs_conf/static/cyranyx.css`.
     This paragraph contains a <a href="#current-cyranyx-design-variables">local link</a>, some <code>inline_code</code>, some <strong>bold text</strong>, and some <em>italic text</em>.
   </p>
 </div>
+<!-- markdownlint-enable MD033 -->
 
 ## 3. sphinx-design card check
 
@@ -186,7 +190,7 @@ Later, old MkDocs cyberpunk variables can be mapped into the new `--cyranyx-*` t
 ## 4. Table color check
 
 | Token | Role | Expected feeling |
-|---|---|---|
+| --- | --- | --- |
 | `--cyranyx-bg-0` | page/deep background | deep, dark, low-noise |
 | `--cyranyx-bg-1` | secondary surface | dark blue-purple surface |
 | `--cyranyx-accent-pink` | hot accent | cyberpunk energy |

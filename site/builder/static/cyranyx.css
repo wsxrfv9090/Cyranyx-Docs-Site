@@ -891,185 +891,154 @@ body mjx-container svg {
 }
 
 /* --------------------------------------------------------------------------
-   Final minimal polish: preview contrast, visited links, auto-dark mapping
+   16. Final link and state normalization
+
+   This block must stay theme-neutral.
+   Do not hard-code body[data-theme="auto"] as light or dark here.
+   Theme identity is controlled only by:
+   - cyranyx-dark.css
+   - cyranyx-light.css
+   - cyranyx-auto.css
    -------------------------------------------------------------------------- */
 
-/* 1. Light/auto-light preview title: make electronic-blue accents clearer. */
-body[data-theme="light"] .preview-title,
-body[data-theme="auto"] .preview-title {
-  color: #006f8f !important;
-  border-color: #005fb8 !important;
-  background-color: rgba(0, 111, 143, 0.06);
-  box-shadow:
-    0 0 14px rgba(0, 95, 184, 0.16),
-    0 0 24px rgba(0, 111, 143, 0.10);
+/* Normal links and visited links must look identical.
+   This prevents browser/Furo visited purple or dark-red underline leakage. */
+body a,
+body a:visited {
+  color: var(--cx-link) !important;
+  text-decoration-color: currentColor !important;
 }
 
-body[data-theme="light"] .preview-chip,
-body[data-theme="auto"] .preview-chip {
-  color: #b8003d !important;
-  border-color: rgba(184, 0, 61, 0.28);
-  background-color: rgba(184, 0, 61, 0.06);
-}
-
-/* 2. Disable visited-link purple. */
-body a:visited,
+/* Main content links */
+body article a,
+body main a,
+body .content a,
 body article a:visited,
 body main a:visited,
-body .content a:visited,
-body .sidebar-tree a:visited,
-body .toc-tree a:visited,
-body .related-pages a:visited {
-  color: inherit;
+body .content a:visited {
+  color: var(--cx-link) !important;
+  text-decoration-color: currentColor !important;
 }
 
-/* For normal content links, visited should look like normal links. */
-body[data-theme="dark"] article a:visited,
-body[data-theme="dark"] main a:visited,
-body[data-theme="dark"] .content a:visited {
-  color: var(--cyranyx-cyan) !important;
-}
-
-body[data-theme="light"] article a:visited,
-body[data-theme="light"] main a:visited,
-body[data-theme="light"] .content a:visited,
-body[data-theme="auto"] article a:visited,
-body[data-theme="auto"] main a:visited,
-body[data-theme="auto"] .content a:visited {
-  color: #006f8f !important;
-}
-
-/* Hover should still win. */
-body a:visited:hover,
+/* Main content hover */
+body article a:hover,
+body main a:hover,
+body .content a:hover,
 body article a:visited:hover,
 body main a:visited:hover,
-body .content a:visited:hover,
+body .content a:visited:hover {
+  color: var(--cx-link-hover) !important;
+  text-decoration-color: currentColor !important;
+  background-color: var(--cx-hover-bg);
+}
+
+/* Generated toctree / contents links */
+body .toctree-wrapper a,
+body .toctree-wrapper a:visited,
+body .toctree-wrapper li a,
+body .toctree-wrapper li a:visited {
+  color: var(--cx-link) !important;
+  text-decoration-color: currentColor !important;
+}
+
+body .toctree-wrapper a:hover,
+body .toctree-wrapper a:visited:hover,
+body .toctree-wrapper li a:hover,
+body .toctree-wrapper li a:visited:hover {
+  color: var(--cx-link-hover) !important;
+  text-decoration-color: currentColor !important;
+  background-color: var(--cx-hover-bg);
+}
+
+/* Sidebar links:
+   Keep sidebar as navigation, not normal underlined article links. */
+body .sidebar-tree a,
+body .sidebar-tree a:visited,
+body .sidebar-tree a.reference,
+body .sidebar-tree a.reference:visited,
+body .sidebar-tree .reference,
+body .sidebar-tree .reference:visited {
+  color: var(--cx-text-primary) !important;
+  text-decoration: none !important;
+  text-decoration-color: currentColor !important;
+}
+
+body .sidebar-tree a:hover,
 body .sidebar-tree a:visited:hover,
+body .sidebar-tree a.reference:hover,
+body .sidebar-tree a.reference:visited:hover,
+body .sidebar-tree .reference:hover,
+body .sidebar-tree .reference:visited:hover {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
+  text-decoration: none !important;
+}
+
+/* Sidebar active/current page */
+body .sidebar-tree .current > .reference,
+body .sidebar-tree .current-page > .reference,
+body .sidebar-tree li.current > a.reference,
+body .sidebar-tree li.current-page > a.reference,
+body .sidebar-tree .reference.current {
+  color: var(--cx-link) !important;
+  background-color: var(--cx-hover-bg);
+  text-decoration: none !important;
+}
+
+body .sidebar-tree .current > .reference:hover,
+body .sidebar-tree .current-page > .reference:hover,
+body .sidebar-tree li.current > a.reference:hover,
+body .sidebar-tree li.current-page > a.reference:hover,
+body .sidebar-tree .reference.current:hover {
+  color: var(--cx-link-hover) !important;
+}
+
+/* Right-side page TOC */
+body .toc-tree a,
+body .toc-tree a:visited,
+body .toc-tree a.reference,
+body .toc-tree a.reference:visited,
+body .toc-tree .reference,
+body .toc-tree .reference:visited {
+  color: var(--cx-text-muted) !important;
+  text-decoration: none !important;
+  text-decoration-color: currentColor !important;
+}
+
+body .toc-tree a:hover,
 body .toc-tree a:visited:hover,
-body .related-pages a:visited:hover {
-  color: var(--cyranyx-blue, #00a2ff) !important;
+body .toc-tree a.reference:hover,
+body .toc-tree a.reference:visited:hover,
+body .toc-tree .reference:hover,
+body .toc-tree .reference:visited:hover {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
+  text-decoration: none !important;
 }
 
-/* 3. Auto mode: do not change Furo state or icon.
-      Only map auto visually when system is dark. */
-@media (prefers-color-scheme: dark) {
-  body[data-theme="auto"] {
-    --color-brand-primary: var(--cyranyx-scarlet);
-    --color-brand-content: var(--cyranyx-cyan);
-
-    --color-link: var(--cyranyx-cyan);
-    --color-link--hover: var(--cyranyx-blue);
-
-    --color-foreground-primary: var(--cyranyx-scarlet-soft);
-    --color-foreground-secondary: #be4e74;
-    --color-foreground-muted: var(--cyranyx-scarlet-dim);
-    --color-foreground-border: var(--cyranyx-scarlet-border);
-
-    --color-background-primary: var(--cyranyx-bg-editor);
-    --color-background-secondary: var(--cyranyx-bg-sidebar);
-    --color-background-hover: var(--cyranyx-bg-hover);
-    --color-background-hover--transparent: var(--cyranyx-hover-blue-bg);
-    --color-background-border: var(--cyranyx-scarlet-border);
-
-    --color-inline-code-background: var(--cyranyx-bg-code);
-    --color-inline-code-foreground: var(--cyranyx-cyan);
-    --color-inline-code-border: var(--cyranyx-scarlet-border);
-  }
+body .toc-tree .current > .reference,
+body .toc-tree li.current > a.reference,
+body .toc-tree .reference.current {
+  color: var(--cx-link) !important;
 }
 
-/* --------------------------------------------------------------------------
-   Final fix: auto theme visited links
-
-   Problem:
-   auto + system dark was using light-theme visited link color (#006f8f).
-   This makes visited links look inconsistent in dark auto mode.
-
-   Rule:
-   - auto + system dark: visited links follow dark active variables.
-   - auto + system light: visited links follow light active variables.
-   -------------------------------------------------------------------------- */
-
-@media (prefers-color-scheme: dark) {
-  body[data-theme="auto"] article a:visited,
-  body[data-theme="auto"] main a:visited,
-  body[data-theme="auto"] .content a:visited {
-    color: var(--cx-link) !important;
-    text-decoration-color: color-mix(in srgb, var(--cx-link) 45%, transparent) !important;
-  }
-
-  body[data-theme="auto"] .sidebar-tree a:visited,
-  body[data-theme="auto"] .sidebar-tree a.reference:visited {
-    color: var(--cx-text-primary) !important;
-    text-decoration-color: color-mix(in srgb, var(--cx-text-primary) 45%, transparent) !important;
-  }
-
-  body[data-theme="auto"] .sidebar-tree .current > a:visited,
-  body[data-theme="auto"] .sidebar-tree .current-page > a:visited,
-  body[data-theme="auto"] .sidebar-tree li.current > a.reference:visited,
-  body[data-theme="auto"] .sidebar-tree li.current-page > a.reference:visited {
-    color: var(--cx-link) !important;
-  }
-
-  body[data-theme="auto"] .toc-tree a:visited,
-  body[data-theme="auto"] .toc-tree a.reference:visited {
-    color: var(--cx-text-muted) !important;
-  }
-
-  body[data-theme="auto"] .toc-tree .current > a:visited,
-  body[data-theme="auto"] .toc-tree li.current > a.reference:visited {
-    color: var(--cx-link) !important;
-  }
-
-  body[data-theme="auto"] a:visited:hover,
-  body[data-theme="auto"] article a:visited:hover,
-  body[data-theme="auto"] main a:visited:hover,
-  body[data-theme="auto"] .content a:visited:hover,
-  body[data-theme="auto"] .sidebar-tree a:visited:hover,
-  body[data-theme="auto"] .toc-tree a:visited:hover {
-    color: var(--cx-link-hover) !important;
-    text-decoration-color: var(--cx-link-hover) !important;
-    background-color: var(--cx-hover-bg);
-  }
+/* Related / prev / next navigation */
+body .related-pages a,
+body .related-pages a:visited,
+body a.prev-page,
+body a.prev-page:visited,
+body a.next-page,
+body a.next-page:visited {
+  color: var(--cx-link) !important;
+  text-decoration-color: currentColor !important;
 }
 
-@media (prefers-color-scheme: light) {
-  body[data-theme="auto"] article a:visited,
-  body[data-theme="auto"] main a:visited,
-  body[data-theme="auto"] .content a:visited {
-    color: #006f8f !important;
-    text-decoration-color: rgba(0, 111, 143, 0.45) !important;
-  }
-
-  body[data-theme="auto"] .sidebar-tree a:visited,
-  body[data-theme="auto"] .sidebar-tree a.reference:visited {
-    color: var(--cx-text-primary) !important;
-  }
-
-  body[data-theme="auto"] .sidebar-tree .current > a:visited,
-  body[data-theme="auto"] .sidebar-tree .current-page > a:visited,
-  body[data-theme="auto"] .sidebar-tree li.current > a.reference:visited,
-  body[data-theme="auto"] .sidebar-tree li.current-page > a.reference:visited {
-    color: var(--cx-link) !important;
-  }
-
-  body[data-theme="auto"] .toc-tree a:visited,
-  body[data-theme="auto"] .toc-tree a.reference:visited {
-    color: var(--cx-text-muted) !important;
-  }
-
-  body[data-theme="auto"] .toc-tree .current > a:visited,
-  body[data-theme="auto"] .toc-tree li.current > a.reference:visited {
-    color: var(--cx-link) !important;
-  }
-
-  body[data-theme="auto"] a:visited:hover,
-  body[data-theme="auto"] article a:visited:hover,
-  body[data-theme="auto"] main a:visited:hover,
-  body[data-theme="auto"] .content a:visited:hover,
-  body[data-theme="auto"] .sidebar-tree a:visited:hover,
-  body[data-theme="auto"] .toc-tree a:visited:hover {
-    color: var(--cx-link-hover) !important;
-    text-decoration-color: var(--cx-link-hover) !important;
-    background-color: var(--cx-hover-bg);
-  }
+body .related-pages a:hover,
+body .related-pages a:visited:hover,
+body a.prev-page:hover,
+body a.prev-page:visited:hover,
+body a.next-page:hover,
+body a.next-page:visited:hover {
+  color: var(--cx-link-hover) !important;
+  background-color: var(--cx-hover-bg);
 }
