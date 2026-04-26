@@ -7,6 +7,9 @@ Cyranyx is a Python-first technical documentation system for research, engineeri
 :caption: Contents
 
 introduction/overview
+cyranyx/index
+exitok/index
+research/index
 api/index
 ```
 
