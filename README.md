@@ -11,26 +11,34 @@ uv sync --extra docs
 ## Build
 
 ```powershell
-uv run python scripts/build_docs.py
+uv run python site\builder\scripts\build_docs.py
 ```
 
 ## Open
 
 ```powershell
-start .\docs_conf\build\html\index.html
+start .\site\builder\build\html\index.html
+```
+
+or directly:
+
+```powershell
+start .\site\builder\build\html\en\index.html
 ```
 
 ## Structure
 
 ```text
-docs/
-  Markdown content only.
+site/
+  docs/
+    en/
+      English Markdown content.
+    zh/
+      Chinese Markdown content.
 
-docs_conf/
-  Sphinx configuration, static assets, templates, and build output.
-
-scripts/
-  Build and publish scripts.
+  builder/
+    Sphinx configuration, static assets, templates, build output,
+    and site-specific scripts.
 ```
 
 ## Stack
@@ -39,7 +47,8 @@ scripts/
 - MyST Parser
 - Furo
 - sphinx-design
+- sphinx-copybutton
 
 ## Goal
 
-Build a Python-first documentation frontend for Cyranyx, including Cyranyx-native content and Exitok-related documentation.
+Build a Python-first static documentation frontend for Cyranyx, including Cyranyx-native content and Exitok-related documentation.

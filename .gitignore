@@ -15,6 +15,7 @@ build/
 *.egg-info/
 
 # Sphinx build output
+site/builder/build/
 docs_conf/build/
 docs/_build/
 
