@@ -818,3 +818,39 @@ body[data-theme="dark"] aside.footnote:hover a,
 body[data-theme="dark"] li.footnote:hover a {
   color: var(--cyranyx-blue) !important;
 }
+
+/* --------------------------------------------------------------------------
+   15. LaTeX / MathJax emphasis
+   -------------------------------------------------------------------------- */
+
+body[data-theme="dark"] .math,
+body[data-theme="dark"] mjx-container,
+body[data-theme="dark"] .MathJax {
+  color: var(--cyranyx-cyan) !important;
+  text-shadow:
+    0 0 10px rgba(0, 255, 200, 0.18),
+    0 0 22px rgba(0, 162, 255, 0.10);
+}
+
+/* Inline math: slightly softer, so it does not overpower normal text */
+body[data-theme="dark"] span.math,
+body[data-theme="dark"] span.math mjx-container {
+  color: #76c1ff !important;
+  text-shadow: 0 0 8px rgba(0, 162, 255, 0.18);
+}
+
+/* Block math: stronger visual focus */
+body[data-theme="dark"] div.math,
+body[data-theme="dark"] div.math mjx-container {
+  color: var(--cyranyx-cyan) !important;
+  text-shadow:
+    0 0 12px rgba(0, 255, 200, 0.22),
+    0 0 28px rgba(0, 162, 255, 0.12);
+}
+
+/* If MathJax renders as SVG, force SVG glyphs to follow the math color. */
+body[data-theme="dark"] mjx-container svg {
+  color: inherit !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
