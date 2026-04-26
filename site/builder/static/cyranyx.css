@@ -976,3 +976,100 @@ body .related-pages a:visited:hover {
     --color-inline-code-border: var(--cyranyx-scarlet-border);
   }
 }
+
+/* --------------------------------------------------------------------------
+   Final fix: auto theme visited links
+
+   Problem:
+   auto + system dark was using light-theme visited link color (#006f8f).
+   This makes visited links look inconsistent in dark auto mode.
+
+   Rule:
+   - auto + system dark: visited links follow dark active variables.
+   - auto + system light: visited links follow light active variables.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  body[data-theme="auto"] article a:visited,
+  body[data-theme="auto"] main a:visited,
+  body[data-theme="auto"] .content a:visited {
+    color: var(--cx-link) !important;
+    text-decoration-color: color-mix(in srgb, var(--cx-link) 45%, transparent) !important;
+  }
+
+  body[data-theme="auto"] .sidebar-tree a:visited,
+  body[data-theme="auto"] .sidebar-tree a.reference:visited {
+    color: var(--cx-text-primary) !important;
+    text-decoration-color: color-mix(in srgb, var(--cx-text-primary) 45%, transparent) !important;
+  }
+
+  body[data-theme="auto"] .sidebar-tree .current > a:visited,
+  body[data-theme="auto"] .sidebar-tree .current-page > a:visited,
+  body[data-theme="auto"] .sidebar-tree li.current > a.reference:visited,
+  body[data-theme="auto"] .sidebar-tree li.current-page > a.reference:visited {
+    color: var(--cx-link) !important;
+  }
+
+  body[data-theme="auto"] .toc-tree a:visited,
+  body[data-theme="auto"] .toc-tree a.reference:visited {
+    color: var(--cx-text-muted) !important;
+  }
+
+  body[data-theme="auto"] .toc-tree .current > a:visited,
+  body[data-theme="auto"] .toc-tree li.current > a.reference:visited {
+    color: var(--cx-link) !important;
+  }
+
+  body[data-theme="auto"] a:visited:hover,
+  body[data-theme="auto"] article a:visited:hover,
+  body[data-theme="auto"] main a:visited:hover,
+  body[data-theme="auto"] .content a:visited:hover,
+  body[data-theme="auto"] .sidebar-tree a:visited:hover,
+  body[data-theme="auto"] .toc-tree a:visited:hover {
+    color: var(--cx-link-hover) !important;
+    text-decoration-color: var(--cx-link-hover) !important;
+    background-color: var(--cx-hover-bg);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body[data-theme="auto"] article a:visited,
+  body[data-theme="auto"] main a:visited,
+  body[data-theme="auto"] .content a:visited {
+    color: #006f8f !important;
+    text-decoration-color: rgba(0, 111, 143, 0.45) !important;
+  }
+
+  body[data-theme="auto"] .sidebar-tree a:visited,
+  body[data-theme="auto"] .sidebar-tree a.reference:visited {
+    color: var(--cx-text-primary) !important;
+  }
+
+  body[data-theme="auto"] .sidebar-tree .current > a:visited,
+  body[data-theme="auto"] .sidebar-tree .current-page > a:visited,
+  body[data-theme="auto"] .sidebar-tree li.current > a.reference:visited,
+  body[data-theme="auto"] .sidebar-tree li.current-page > a.reference:visited {
+    color: var(--cx-link) !important;
+  }
+
+  body[data-theme="auto"] .toc-tree a:visited,
+  body[data-theme="auto"] .toc-tree a.reference:visited {
+    color: var(--cx-text-muted) !important;
+  }
+
+  body[data-theme="auto"] .toc-tree .current > a:visited,
+  body[data-theme="auto"] .toc-tree li.current > a.reference:visited {
+    color: var(--cx-link) !important;
+  }
+
+  body[data-theme="auto"] a:visited:hover,
+  body[data-theme="auto"] article a:visited:hover,
+  body[data-theme="auto"] main a:visited:hover,
+  body[data-theme="auto"] .content a:visited:hover,
+  body[data-theme="auto"] .sidebar-tree a:visited:hover,
+  body[data-theme="auto"] .toc-tree a:visited:hover {
+    color: var(--cx-link-hover) !important;
+    text-decoration-color: var(--cx-link-hover) !important;
+    background-color: var(--cx-hover-bg);
+  }
+}
